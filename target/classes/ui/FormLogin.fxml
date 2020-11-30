@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="txtUser" layoutX="216.0" layoutY="110.0" prefHeight="31.0" prefWidth="215.0" promptText="Introduce el usuario">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="txtPass" layoutX="216.0" layoutY="146.0" prefHeight="31.0" prefWidth="215.0" promptText="Introduce el password">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </PasswordField>
+      <RadioButton fx:id="chkCrearIncidencias" layoutX="176.0" layoutY="197.0" mnemonicParsing="false" text="Crear incidencias">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="seleccion" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="chkGestIncidencias" layoutX="176.0" layoutY="232.0" mnemonicParsing="false" text="Gestionar incidencias" toggleGroup="$seleccion">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </RadioButton>
+      <Button fx:id="btnLogin" layoutX="192.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="179.0" text="Login">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="123.0" layoutY="115.0" text="Usuario:">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="123.0" layoutY="151.0" text="Password:">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="163.0" layoutY="14.0" prefHeight="69.0" prefWidth="252.0" text="GestCAU">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="64.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
