@@ -1,6 +1,8 @@
 package com.nacho.gestCAU;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Model {
     //private Connection conexionPostgre, conexionMYSQL;
@@ -37,7 +39,7 @@ public class Model {
         return res;
     }
     
-    public void desconectarBD(String baseDatos){
+    /*public void desconectarBD(String baseDatos){
 
         switch(baseDatos){
             case "postgre":
@@ -58,7 +60,7 @@ public class Model {
                 }
         }
 
-    }
+    }*/
     
     public Boolean validarUser(String usuario, String pass, String baseDatos) throws SQLException {
         Boolean res=false;

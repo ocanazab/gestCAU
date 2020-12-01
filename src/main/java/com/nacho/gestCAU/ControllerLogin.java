@@ -48,6 +48,7 @@ public class ControllerLogin {
                 //Conectamos a Postgre
 
                 resultadoConexion = modelo.conectarBD("postgre");
+                mensaje.mostrarInfo("1. Conectado a postgre");
 
                 if (resultadoConexion){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
@@ -55,7 +56,7 @@ public class ControllerLogin {
                         View vistaCreacion = new View();
                         vistaCreacion.inicioCrearIncidencias();
                     }else{
-                        mensaje.mostrarError("Usuario incorrecto.");
+                        mensaje.mostrarError("Credenciales incorrectos.");
                     }
                 }else{
                     mensaje.mostrarError("Imposible conectar a la base de datos Postgre");
@@ -64,6 +65,7 @@ public class ControllerLogin {
             if(chkGestIncidencias.isSelected()){
                 //Conectamos a MYSQL
                 resultadoConexion=modelo.conectarBD("mysql");
+                mensaje.mostrarInfo("2. Conectado a MYSQL");
 
                 if(resultadoConexion){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
@@ -71,7 +73,7 @@ public class ControllerLogin {
                         View vistaGestion = new View();
                         vistaGestion.inicioGestionIncidencias();
                     }else{
-                        mensaje.mostrarError("Usuario incorrecto.");
+                        mensaje.mostrarError("Credenciales incorrectos.");
                     }
                 }else{
                     mensaje.mostrarError("Imposible conectar a MySQL");
