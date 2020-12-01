@@ -1,6 +1,7 @@
 package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Mensajeria;
+import com.nacho.gestCAU.util.Cifrado;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
@@ -17,6 +18,8 @@ public class ControllerLogin {
     public TextField txtPass;
     public RadioButton chkCrearIncidencias;
     public RadioButton chkGestIncidencias;
+    String passCifrada;
+    final int claveCifrado=2;
     Boolean error;
 
     @FXML
@@ -27,8 +30,6 @@ public class ControllerLogin {
         Boolean resultadoConexion=false;
 
 
-        /*if (txtUser.getText().equals("")) error=true;
-        if (txtPass.getText().equals("")) error=true;*/
         if(txtUser.getText().isEmpty()) error=true;
         if(txtPass.getText().isEmpty()) error=true;
         if ((chkCrearIncidencias.isSelected()==false) && (chkGestIncidencias.isSelected()==false)) error=true;
@@ -38,6 +39,11 @@ public class ControllerLogin {
         }else{
 
             Model modelo= new Model();
+
+            //Ciframos la contraseña introducida.
+            Cifrado cifraPass = new Cifrado();
+            passCifrada=cifraPass.cifra(txtPass.getText(),claveCifrado);
+
             if(chkCrearIncidencias.isSelected()){
                 //Conectamos a Postgre
 
@@ -45,7 +51,7 @@ public class ControllerLogin {
 
                 if (resultadoConexion){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
-                    if(modelo.validarUser(txtUser.getText(),"postgre")){
+                    if(modelo.validarUser(txtUser.getText(),passCifrada,"postgre")){
                         View vistaCreacion = new View();
                         vistaCreacion.inicioCrearIncidencias();
                     }else{
@@ -61,7 +67,7 @@ public class ControllerLogin {
 
                 if(resultadoConexion){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
-                    if(modelo.validarUser(txtUser.getText(),"mysql")){
+                    if(modelo.validarUser(txtUser.getText(),passCifrada,"mysql")){
                         View vistaGestion = new View();
                         vistaGestion.inicioGestionIncidencias();
                     }else{

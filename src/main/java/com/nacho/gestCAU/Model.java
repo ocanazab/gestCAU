@@ -60,7 +60,7 @@ public class Model {
 
     }
     
-    public Boolean validarUser(String usuario, String baseDatos) throws SQLException {
+    public Boolean validarUser(String usuario, String pass, String baseDatos) throws SQLException {
         Boolean res=false;
         String sql="SELECT login, password FROM usuarios WHERE login = ?";
         switch (baseDatos) {
