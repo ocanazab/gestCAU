@@ -1,5 +1,8 @@
 package com.nacho.gestCAU;
 
+import com.nacho.gestCAU.util.Mensajeria;
+
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,33 +13,41 @@ public class Model {
     private Connection conexionMYSQL = null;
 
 
-    public Boolean conectarBD(String baseDatos){
-        Boolean res=false;
+    public String conectarBD(String baseDatos){
+        String fallo="";
+        Mensajeria mensaje = new Mensajeria();
         switch (baseDatos){
             case "postgre":
                 try{
-                    Class.forName("org.postgresql.Driver");
+
+                    Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
                     conexionPostgre= DriverManager.getConnection("jdbc:postgresql://localhost:5432/gestIncidencias",
-                            "postgres", "nachoCAU");
-                    res=true;
-                }catch (ClassNotFoundException nf){
-                    res=false;
+                            "postgres", "nacho;pili;tq");
+                }catch (ClassNotFoundException e){
+                    fallo=e.getMessage();
                 } catch (SQLException throwables) {
-                    res=false;
+                    fallo=throwables.getMessage();
+                } catch (IllegalAccessException e) {
+                    fallo=e.getMessage();
+                } catch (InstantiationException e) {
+                    fallo=e.getMessage();
+                } catch (NoSuchMethodException e) {
+                    fallo=e.getMessage();
+                } catch (InvocationTargetException e) {
+                    fallo=e.getMessage();
                 }
             case "mysql":
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     conexionMYSQL = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestCAU?serverTimezone=UTC",
                             "nacho", "nachoCAU");
-                    res=true;
-                } catch (ClassNotFoundException cnfe) {
-                    res= false;
-                } catch (SQLException sqle) {
-                    res= false;
+                } catch (ClassNotFoundException e) {
+                    fallo=e.getMessage();
+                } catch (SQLException e) {
+                    fallo=e.getMessage();
                 }
         }
-        return res;
+        return fallo;
     }
     
     /*public void desconectarBD(String baseDatos){
@@ -81,6 +92,8 @@ public class Model {
                 sentenciaMysql.setString(1,usuario);
                 ResultSet resultadoMysql = sentenciaMysql.executeQuery();
                 if(resultadoMysql.next()){
+                    //El usuario se ha encontrado. Vamos a comprobar la pass
+
                     res=true;
                     resultadoMysql.close();
                 }

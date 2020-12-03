@@ -27,7 +27,7 @@ public class ControllerLogin {
         //Codigo para iniciar el login.
         Mensajeria mensaje = new Mensajeria();
         Boolean error=false;
-        Boolean resultadoConexion=false;
+        String resultadoConexion="";
 
 
         if(txtUser.getText().isEmpty()) error=true;
@@ -35,7 +35,7 @@ public class ControllerLogin {
         if ((chkCrearIncidencias.isSelected()==false) && (chkGestIncidencias.isSelected()==false)) error=true;
 
         if (error){
-            mensaje.mostrarError("Debes rellenar y seleccionar correctamente los datos");
+            mensaje.mostrarError("Validación","Debes rellenar y seleccionar correctamente los datos");
         }else{
 
             Model modelo= new Model();
@@ -48,35 +48,34 @@ public class ControllerLogin {
                 //Conectamos a Postgre
 
                 resultadoConexion = modelo.conectarBD("postgre");
-                mensaje.mostrarInfo("1. Conectado a postgre");
 
-                if (resultadoConexion){
+
+                if (resultadoConexion.isEmpty()){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
                     if(modelo.validarUser(txtUser.getText(),passCifrada,"postgre")){
                         View vistaCreacion = new View();
                         vistaCreacion.inicioCrearIncidencias();
                     }else{
-                        mensaje.mostrarError("Credenciales incorrectos.");
+                        mensaje.mostrarError("Validación","Credenciales incorrectos.");
                     }
                 }else{
-                    mensaje.mostrarError("Imposible conectar a la base de datos Postgre");
+                    mensaje.mostrarError("Error en conexion a Postgre",resultadoConexion);
                 }
             }
             if(chkGestIncidencias.isSelected()){
                 //Conectamos a MYSQL
                 resultadoConexion=modelo.conectarBD("mysql");
-                mensaje.mostrarInfo("2. Conectado a MYSQL");
 
-                if(resultadoConexion){
+                if(resultadoConexion.isEmpty()){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
                     if(modelo.validarUser(txtUser.getText(),passCifrada,"mysql")){
                         View vistaGestion = new View();
                         vistaGestion.inicioGestionIncidencias();
                     }else{
-                        mensaje.mostrarError("Credenciales incorrectos.");
+                        mensaje.mostrarError("Error en validacion","Credenciales incorrectos.");
                     }
                 }else{
-                    mensaje.mostrarError("Imposible conectar a MySQL");
+                    mensaje.mostrarError("Error en conexión a MYSQL",resultadoConexion);
                 }
             }
         }

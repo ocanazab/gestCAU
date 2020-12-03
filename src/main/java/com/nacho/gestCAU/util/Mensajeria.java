@@ -4,15 +4,15 @@ import javafx.scene.control.Alert;
 
 public class Mensajeria {
 
-    public static void mostrarError(String mensaje){
+    public static void mostrarError(String titulo, String mensaje){
         Alert alerta = new Alert(Alert.AlertType.ERROR);
-        alerta.setTitle("Error");
+        alerta.setTitle(titulo);
         alerta.setContentText(mensaje);
         alerta.show();
     }
-    public static void mostrarInfo(String mensaje){
+    public static void mostrarInfo(String titulo, String mensaje){
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Información");
+        alerta.setTitle(titulo);
         alerta.setContentText(mensaje);
         alerta.show();
     }
