@@ -2,11 +2,14 @@ package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.Cifrado;
-import javafx.event.Event;
+import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
@@ -52,7 +55,14 @@ public class ControllerLogin {
 
                 if (resultadoConexion.isEmpty()){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
-                    if(modelo.validarUser(txtUser.getText(),passCifrada,"postgre")){
+
+                    //Obtenemos las credenciales almacenadas en BD y comparamos con los introducidos
+                    String usuarioBD="";
+                    String passBD="";
+                    usuarioBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"postgre")[0];
+                    passBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"postgre")[1];
+
+                    if (usuarioBD.equals(txtUser.getText()) && passBD.equals(txtPass.getText())){
                         View vistaCreacion = new View();
                         vistaCreacion.inicioCrearIncidencias();
                     }else{
@@ -66,19 +76,26 @@ public class ControllerLogin {
                 //Conectamos a MYSQL
                 resultadoConexion=modelo.conectarBD("mysql");
 
-                if(resultadoConexion.isEmpty()){
+                if (resultadoConexion.isEmpty()){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
-                    if(modelo.validarUser(txtUser.getText(),passCifrada,"mysql")){
-                        View vistaGestion = new View();
-                        vistaGestion.inicioGestionIncidencias();
+                    //modelo.validarUser(txtUser.getText(),passCifrada,"postgre")
+
+                    //Obtenemos las credenciales almacenadas en BD y comparamos con los introducidos
+                    String usuarioBD="";
+                    String passBD="";
+                    usuarioBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"mysql")[0];
+                    passBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"mysql")[1];
+
+                    if (usuarioBD.equals(txtUser.getText()) && passBD.equals(txtPass.getText())){
+                        View vistaCreacion = new View();
+                        vistaCreacion.inicioGestionIncidencias();
                     }else{
-                        mensaje.mostrarError("Error en validacion","Credenciales incorrectos.");
+                        mensaje.mostrarError("Validación","Credenciales incorrectos.");
                     }
                 }else{
-                    mensaje.mostrarError("Error en conexión a MYSQL",resultadoConexion);
+                    mensaje.mostrarError("Error en conexion a Postgre",resultadoConexion);
                 }
             }
         }
-
     }
 }

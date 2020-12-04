@@ -73,9 +73,12 @@ public class Model {
 
     }*/
     
-    public Boolean validarUser(String usuario, String pass, String baseDatos) throws SQLException {
-        Boolean res=false;
+    public String[] obtenerUser(String usuario, String pass, String baseDatos) throws SQLException {
+        //Boolean res=false;
         String sql="SELECT login, password FROM usuarios WHERE login = ?";
+        String [] resultado = new String[2];
+        resultado[0]="";
+        resultado[1]="";
         switch (baseDatos) {
             case "postgre":
                 //Código para validar el usuario en la base de datos de Postgre
@@ -83,7 +86,8 @@ public class Model {
                 sentenciaPostgre.setString(1,usuario);
                 ResultSet resultadoPostgre = sentenciaPostgre.executeQuery();
                 if (resultadoPostgre.next()){
-                    res=true;
+                    resultado[0]=resultadoPostgre.getString(1);
+                    resultado[1]=resultadoPostgre.getString(2);
                     resultadoPostgre.close();
                 }
             case "mysql":
@@ -92,13 +96,12 @@ public class Model {
                 sentenciaMysql.setString(1,usuario);
                 ResultSet resultadoMysql = sentenciaMysql.executeQuery();
                 if(resultadoMysql.next()){
-                    //El usuario se ha encontrado. Vamos a comprobar la pass
-
-                    res=true;
+                    resultado[0]=resultadoMysql.getString(1);
+                    resultado[1]=resultadoMysql.getString(2);
                     resultadoMysql.close();
                 }
         }
-        return res;
+        return resultado;
 
     }
     
