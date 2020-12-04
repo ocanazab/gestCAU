@@ -5,6 +5,7 @@ import com.nacho.gestCAU.util.Cifrado;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
@@ -21,6 +22,7 @@ public class ControllerLogin {
     public TextField txtPass;
     public RadioButton chkCrearIncidencias;
     public RadioButton chkGestIncidencias;
+    public Button btnLogin;
     String passCifrada;
     final int claveCifrado=2;
     Boolean error;
@@ -65,6 +67,10 @@ public class ControllerLogin {
                     if (usuarioBD.equals(txtUser.getText()) && passBD.equals(txtPass.getText())){
                         View vistaCreacion = new View();
                         vistaCreacion.inicioCrearIncidencias();
+
+                        //Cerramos la pantalla de login
+                        Stage stage = (Stage) btnLogin.getScene().getWindow();
+                        stage.close();
                     }else{
                         mensaje.mostrarError("Validación","Credenciales incorrectos.");
                     }
@@ -89,6 +95,10 @@ public class ControllerLogin {
                     if (usuarioBD.equals(txtUser.getText()) && passBD.equals(txtPass.getText())){
                         View vistaCreacion = new View();
                         vistaCreacion.inicioGestionIncidencias();
+
+                        //Cerramos la pantalla de login
+                       Stage stage = (Stage) btnLogin.getScene().getWindow();
+                       stage.close();
                     }else{
                         mensaje.mostrarError("Validación","Credenciales incorrectos.");
                     }
