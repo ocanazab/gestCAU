@@ -68,14 +68,13 @@ public class ControllerLogin {
                         View vistaCreacion = new View();
                         vistaCreacion.inicioCrearIncidencias();
 
-                        //Cerramos la pantalla de login
-                        Stage stage = (Stage) btnLogin.getScene().getWindow();
-                        stage.close();
                     }else{
                         mensaje.mostrarError("Validación","Credenciales incorrectos.");
+                        error=true;
                     }
                 }else{
                     mensaje.mostrarError("Error en conexion a Postgre",resultadoConexion);
+                    error=true;
                 }
             }
             if(chkGestIncidencias.isSelected()){
@@ -96,15 +95,19 @@ public class ControllerLogin {
                         View vistaCreacion = new View();
                         vistaCreacion.inicioGestionIncidencias();
 
-                        //Cerramos la pantalla de login
-                       Stage stage = (Stage) btnLogin.getScene().getWindow();
-                       stage.close();
                     }else{
                         mensaje.mostrarError("Validación","Credenciales incorrectos.");
+                        error=true;
                     }
                 }else{
                     mensaje.mostrarError("Error en conexion a Postgre",resultadoConexion);
+                    error=true;
                 }
+            }
+            if (!error){
+                //Cerramos la pantalla de login
+                Stage stage = (Stage) btnLogin.getScene().getWindow();
+                stage.close();
             }
         }
     }
