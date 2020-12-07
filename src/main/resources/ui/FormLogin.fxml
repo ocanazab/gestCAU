@@ -54,7 +54,7 @@
             <Font name="MathJax_Typewriter-Regular" size="64.0" />
          </font>
       </Label>
-      <Button fx:id="btnNewuser" layoutX="301.0" layoutY="284.0" mnemonicParsing="false" onAction="#newuser" prefHeight="26.0" prefWidth="179.0" text="Nuevo usuario">
+      <Button fx:id="btnNewuser" layoutX="301.0" layoutY="284.0" mnemonicParsing="false" onAction="#Newuser" prefHeight="26.0" prefWidth="179.0" text="Nuevo usuario">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>

@@ -113,9 +113,10 @@ public class ControllerLogin {
         }
     }
 
-    public void newUser(){
+    public void Newuser(){
         //Muestro el formulario que permite el registro del usuario.
         View vistaNuevousuario = new View();
+        vistaNuevousuario.inicioNuevousuario();
 
     }
 }

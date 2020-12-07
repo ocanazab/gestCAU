@@ -80,7 +80,7 @@ public class View extends Application {
     public void inicioNuevousuario (){
         FXMLLoader loaderNuevousuario = new FXMLLoader();
         loaderNuevousuario.setLocation(R.getUI("FormNewUser.fxml"));
-        loaderNuevousuario.setController(new ControllerGestion());
+        loaderNuevousuario.setController(new ControllerNewUser());
 
         AnchorPane anchorPane = null;
         try {
