@@ -23,6 +23,7 @@ public class ControllerLogin {
     public RadioButton chkCrearIncidencias;
     public RadioButton chkGestIncidencias;
     public Button btnLogin;
+    public Button btnNewuser;
     String passCifrada;
     final int claveCifrado=2;
     Boolean error;
@@ -45,6 +46,7 @@ public class ControllerLogin {
 
             Model modelo= new Model();
 
+
             //Ciframos la contraseña introducida.
             Cifrado cifraPass = new Cifrado();
             passCifrada=cifraPass.cifra(txtPass.getText(),claveCifrado);
@@ -56,7 +58,6 @@ public class ControllerLogin {
 
 
                 if (resultadoConexion.isEmpty()){
-                    //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
 
                     //Obtenemos las credenciales almacenadas en BD y comparamos con los introducidos
                     String usuarioBD="";
@@ -110,5 +111,11 @@ public class ControllerLogin {
                 stage.close();
             }
         }
+    }
+
+    public void newUser(){
+        //Muestro el formulario que permite el registro del usuario.
+        View vistaNuevousuario = new View();
+
     }
 }

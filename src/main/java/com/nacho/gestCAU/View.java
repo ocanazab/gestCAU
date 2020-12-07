@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -73,6 +74,30 @@ public class View extends Application {
         stage.setMaximized(false);
         stage.setTitle("Gestión de Incidencias");
         stage.show();
+
+    }
+
+    public void inicioNuevousuario (){
+        FXMLLoader loaderNuevousuario = new FXMLLoader();
+        loaderNuevousuario.setLocation(R.getUI("FormNewUser.fxml"));
+        loaderNuevousuario.setController(new ControllerGestion());
+
+        AnchorPane anchorPane = null;
+        try {
+            anchorPane = loaderNuevousuario.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene= new Scene(anchorPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.setMaximized(false);
+        stage.setTitle("Nuevo Usuario");
+        stage.showAndWait();
+        //stage.show();
 
     }
 

@@ -103,9 +103,38 @@ public class Model {
         }
         return resultado;
 
-    }
-    
-    
 
+
+    }
+    public Boolean crearUser(String usuario, String pass, String baseDatos) throws SQLException {
+        Boolean res = false;
+        String sql = "INSERT INTO USUARIOS () VALUES";
+        String[] resultado = new String[2];
+        resultado[0] = "";
+        resultado[1] = "";
+        switch (baseDatos) {
+            case "postgre":
+                //Código para validar el usuario en la base de datos de Postgre
+                PreparedStatement sentenciaPostgre = conexionPostgre.prepareStatement(sql);
+                sentenciaPostgre.setString(1, usuario);
+                ResultSet resultadoPostgre = sentenciaPostgre.executeQuery();
+                if (resultadoPostgre.next()) {
+                    resultado[0] = resultadoPostgre.getString(1);
+                    resultado[1] = resultadoPostgre.getString(2);
+                    resultadoPostgre.close();
+                }
+            case "mysql":
+                //Código para validar el usuario en la base de datos de MYSQL
+                PreparedStatement sentenciaMysql = conexionMYSQL.prepareStatement(sql);
+                sentenciaMysql.setString(1, usuario);
+                ResultSet resultadoMysql = sentenciaMysql.executeQuery();
+                if (resultadoMysql.next()) {
+                    resultado[0] = resultadoMysql.getString(1);
+                    resultado[1] = resultadoMysql.getString(2);
+                    resultadoMysql.close();
+                }
+        }
+        return res;
+    }
 
 }

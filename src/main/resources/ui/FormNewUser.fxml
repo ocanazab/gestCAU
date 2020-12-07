@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="66.0" layoutY="14.0" prefHeight="69.0" prefWidth="425.0" text="Nuevo Usuario">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="64.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="123.0" text="* Usuario:">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUser" layoutX="170.0" layoutY="116.0" prefHeight="31.0" prefWidth="215.0" promptText="Introduce el usuario">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="56.0" layoutY="159.0" text="* Password:">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="txtPass" layoutX="170.0" layoutY="152.0" prefHeight="31.0" prefWidth="215.0" promptText="Introduce el password">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </PasswordField>
+      <Label layoutX="56.0" layoutY="190.0" prefHeight="38.0" prefWidth="112.0" text="* Confirma password:" wrapText="true">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="txtPass2" layoutX="170.0" layoutY="191.0" prefHeight="31.0" prefWidth="215.0" promptText="Confirma el password">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </PasswordField>
+      <Label layoutX="56.0" layoutY="243.0" text="Nombre:">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNombre" layoutX="170.0" layoutY="236.0" prefHeight="31.0" prefWidth="215.0" promptText="Introduce el nombre">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="56.0" layoutY="285.0" text="Apelidos:">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtApellidos" layoutX="170.0" layoutY="278.0" prefHeight="31.0" prefWidth="342.0" promptText="Introduce los apellidos">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="56.0" layoutY="324.0" text="Correo:">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtEmail" layoutX="170.0" layoutY="317.0" prefHeight="31.0" prefWidth="215.0" promptText="e-mail">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </TextField>
+      <Button fx:id="btnSave" layoutX="81.0" layoutY="376.0" mnemonicParsing="false" onAction="#saveUser" prefHeight="26.0" prefWidth="179.0" text="Guardar">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCancel" layoutX="274.0" layoutY="376.0" mnemonicParsing="false" onAction="#cancel" prefHeight="26.0" prefWidth="179.0" text="Cancelar">
+         <font>
+            <Font name="MathJax_Typewriter-Regular" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
