@@ -2,16 +2,17 @@ package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.Cifrado;
-import javafx.event.ActionEvent;
 
+import com.nacho.gestCAU.util.R;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-
-import javafx.scene.Node;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -23,25 +24,23 @@ public class ControllerLogin {
     public RadioButton chkCrearIncidencias;
     public RadioButton chkGestIncidencias;
     public Button btnLogin;
-    public Button btnNewuser;
     String passCifrada;
     final int claveCifrado=2;
-    Boolean error;
 
     @FXML
     public void login() throws SQLException {
         //Codigo para iniciar el login.
-        Mensajeria mensaje = new Mensajeria();
-        Boolean error=false;
-        String resultadoConexion="";
+
+        boolean error=false;
+        String resultadoConexion;
 
 
         if(txtUser.getText().isEmpty()) error=true;
         if(txtPass.getText().isEmpty()) error=true;
-        if ((chkCrearIncidencias.isSelected()==false) && (chkGestIncidencias.isSelected()==false)) error=true;
+        if ((!chkCrearIncidencias.isSelected()) && (!chkGestIncidencias.isSelected())) error=true;
 
         if (error){
-            mensaje.mostrarError("Validación","Debes rellenar y seleccionar correctamente los datos");
+            Mensajeria.mostrarError("Validación","Debes rellenar y seleccionar correctamente los datos");
         }else{
 
             Model modelo= new Model();
@@ -51,17 +50,16 @@ public class ControllerLogin {
             Cifrado cifraPass = new Cifrado();
             passCifrada=cifraPass.cifra(txtPass.getText(),claveCifrado);
 
+            //Si el usuario ha seleccionado la creación de incidencias
             if(chkCrearIncidencias.isSelected()){
                 //Conectamos a Postgre
-
                 resultadoConexion = modelo.conectarBD("postgre");
 
 
                 if (resultadoConexion.isEmpty()){
-
                     //Obtenemos las credenciales almacenadas en BD y comparamos con los introducidos
-                    String usuarioBD="";
-                    String passBD="";
+                    String usuarioBD;
+                    String passBD;
                     usuarioBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"postgre")[0];
                     passBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"postgre")[1];
 
@@ -70,14 +68,16 @@ public class ControllerLogin {
                         vistaCreacion.inicioCrearIncidencias();
 
                     }else{
-                        mensaje.mostrarError("Validación","Credenciales incorrectos.");
+                        Mensajeria.mostrarError("Validación","Credenciales incorrectos.");
                         error=true;
                     }
                 }else{
-                    mensaje.mostrarError("Error en conexion a Postgre",resultadoConexion);
+                    Mensajeria.mostrarError("Error en conexion a Postgre",resultadoConexion);
                     error=true;
                 }
             }
+
+            //Si el usuario ha seleccionado la gestión de incidencias
             if(chkGestIncidencias.isSelected()){
                 //Conectamos a MYSQL
                 resultadoConexion=modelo.conectarBD("mysql");
@@ -87,8 +87,8 @@ public class ControllerLogin {
                     //modelo.validarUser(txtUser.getText(),passCifrada,"postgre")
 
                     //Obtenemos las credenciales almacenadas en BD y comparamos con los introducidos
-                    String usuarioBD="";
-                    String passBD="";
+                    String usuarioBD;
+                    String passBD;
                     usuarioBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"mysql")[0];
                     passBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"mysql")[1];
 
@@ -97,11 +97,11 @@ public class ControllerLogin {
                         vistaCreacion.inicioGestionIncidencias();
 
                     }else{
-                        mensaje.mostrarError("Validación","Credenciales incorrectos.");
+                        Mensajeria.mostrarError("Validación","Credenciales incorrectos.");
                         error=true;
                     }
                 }else{
-                    mensaje.mostrarError("Error en conexion a Postgre",resultadoConexion);
+                    Mensajeria.mostrarError("Error en conexion a Postgre",resultadoConexion);
                     error=true;
                 }
             }
@@ -114,9 +114,42 @@ public class ControllerLogin {
     }
 
     public void Newuser(){
-        //Muestro el formulario que permite el registro del usuario.
-        View vistaNuevousuario = new View();
-        vistaNuevousuario.inicioNuevousuario();
+
+        if ((!chkCrearIncidencias.isSelected()) && (!chkGestIncidencias.isSelected())){
+            Mensajeria.mostrarError("Faltan datos","Debes seleccionar la base de datos");
+        }else{
+            String baseDatos="";
+            if (chkGestIncidencias.isSelected()){
+                baseDatos="mysql";
+            }
+            if(chkCrearIncidencias.isSelected()){
+                baseDatos="postgre";
+            }
+            //Envio la base de datos seleccionada al formulario de nuevo usuario.
+            enviarDatos(baseDatos);
+            //Muestro el formulario que permite el registro del usuario.
+            View vistaNuevousuario = new View();
+            vistaNuevousuario.inicioNuevousuario();
+        }
 
     }
+
+    private void enviarDatos(String valor){
+        try {
+            //Cargo el formulario de nuevo usuario
+            FXMLLoader loaderNuevousuario = new FXMLLoader();
+            loaderNuevousuario.setLocation(R.getUI("FormNewUser.fxml"));
+            loaderNuevousuario.setController(new ControllerNewUser());
+            Parent root = loaderNuevousuario.load();
+
+            //Obtengo el controlador de nuevo usuario.
+            ControllerNewUser nuevoUsuario = loaderNuevousuario.getController();
+            //Paso los datos correspondientes
+            nuevoUsuario.recibirDatos(valor);
+
+        } catch (IOException ex) {
+            System.err.println(ex);
+        }
+    }
+
 }

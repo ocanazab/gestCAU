@@ -97,7 +97,7 @@ public class View extends Application {
         stage.setMaximized(false);
         stage.setTitle("Nuevo Usuario");
         stage.showAndWait();
-        //stage.show();
+
 
     }
 
