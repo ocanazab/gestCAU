@@ -1,6 +1,5 @@
 package com.nacho.gestCAU;
 
-import com.nacho.gestCAU.util.Mensajeria;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -9,21 +8,37 @@ import javafx.stage.Stage;
 public class ControllerNewUser {
 
     //Definición de variables
-    public TextField txtUser;
-    public TextField txtPass;
-    public TextField txtPass2;
-    public TextField txtNombre;
-    public TextField txtApellidos;
-    public TextField txtemail;
-
-    public Button btnCancel;
+    @FXML
+    private TextField txtUser;
+    @FXML
+    private TextField txtPass;
+    @FXML
+    private TextField txtPass2;
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    private TextField txtApellidos;
+    @FXML
+    private TextField txtEmail;
 
     @FXML
-    public void saveUser(){
-        Mensajeria.mostrarInfo("Prueba","La base de datos seleccionada es: ");
+    private Button btnSave;
+
+    @FXML
+    private Button btnCancel;
+
+    @FXML
+    private void saveUser(){
+        txtUser.setText("Usuario");
+        txtPass.setText("Password");
+        txtPass2.setText("Password2");
+        txtNombre.setText("Nombre");
+        txtApellidos.setText("Apellidos");
+        txtEmail.setText("Correo");
     }
 
-    public void cancel(){
+    @FXML
+    private void cancel(){
             //Cerramos la pantalla de login
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
@@ -31,7 +46,7 @@ public class ControllerNewUser {
 
     //Recibe los datos de otro formulario.
     public void recibirDatos(String datoRecibido) {
-        Mensajeria.mostrarInfo("Prueba",datoRecibido);
+       txtEmail.setText(datoRecibido);
     }
 
 }

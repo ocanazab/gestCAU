@@ -18,17 +18,25 @@ import java.sql.SQLException;
 
 public class ControllerLogin {
 
-    //Defino las variables que guardaran el contenido de los campos en pantalla
-    public TextField txtUser;
-    public TextField txtPass;
-    public RadioButton chkCrearIncidencias;
-    public RadioButton chkGestIncidencias;
-    public Button btnLogin;
+    //Defino las variables para FXML que guardaran el contenido de los campos en pantalla
+    @FXML
+    private TextField txtUser;
+    @FXML
+    private TextField txtPass;
+    @FXML
+    private RadioButton chkCrearIncidencias;
+    @FXML
+    private RadioButton chkGestIncidencias;
+    @FXML
+    private Button btnLogin;
+
+    //Otro tipo de variables
     String passCifrada;
     final int claveCifrado=2;
 
+
     @FXML
-    public void login() throws SQLException {
+    private void login() throws SQLException {
         //Codigo para iniciar el login.
 
         boolean error=false;
@@ -112,8 +120,8 @@ public class ControllerLogin {
             }
         }
     }
-
-    public void Newuser(){
+    @FXML
+    private void Newuser(){
 
         if ((!chkCrearIncidencias.isSelected()) && (!chkGestIncidencias.isSelected())){
             Mensajeria.mostrarError("Faltan datos","Debes seleccionar la base de datos");
