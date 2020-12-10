@@ -1,5 +1,6 @@
 package com.nacho.gestCAU;
 
+import com.nacho.gestCAU.util.Mensajeria;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,6 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import com.nacho.gestCAU.util.Cifrado;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerNewUser {
 
@@ -34,12 +39,13 @@ public class ControllerNewUser {
     private ChoiceBox comboSistema;
 
     boolean primeraCarga=false;
-    // Valores para el ChoiceBox
-    ObservableList<String> valoresSistema = FXCollections.observableArrayList("Selecciona un valor", "Crear Incidencias", "Gestionar Incidencias");
+
 
 
     @FXML
     private void initialize() {
+        // Valores para el ChoiceBox
+        ObservableList<String> valoresSistema = FXCollections.observableArrayList("Selecciona un valor", "Crear Incidencias", "Gestionar Incidencias");
 
         comboSistema.setItems(valoresSistema);
         comboSistema.setValue("Selecciona un valor");
@@ -49,8 +55,16 @@ public class ControllerNewUser {
     @FXML
     private void saveUser(){
         //Guardamos el usuario en la base de datos correspondiente.
-        //Encriptamos la clave introducida.
+        List<String> resultado = new ArrayList<>();
+        String errores="";
+        resultado=validarDatos();
 
+        if(!resultado.isEmpty()){
+            for(int i=0;i<resultado.size();i++){
+
+            }
+            Mensajeria.mostrarError("Error en la validación",errores);
+        }
     }
 
     @FXML
@@ -60,13 +74,30 @@ public class ControllerNewUser {
             stage.close();
     }
 
-    private boolean validarDatos(){
-        boolean resultado=false;
+    private List<String> validarDatos(){
+        //Valido solamente los obligatorios.
 
+        List<String> errores = new ArrayList<>();
 
+        if (txtUser.getText().isEmpty()){
+            errores.add("El usuario no puede estar vacio.");
+        }
 
+        if(txtNombre.getText().isEmpty()){
+            errores.add("El nombre no puede estar vacio.");
+        }
 
-        return resultado;
+        if((String) comboSistema.getValue()=="Selecciona un valor"){
+            errores.add("Debes seleccionar un valor para el sistema.");
+        }
+
+        if(txtPass.getText().isEmpty()||txtPass2.getText().isEmpty()){
+            errores.add("La contraseña no puede estar en blanco");
+        }else if(!txtPass.getText().equals(txtPass2.getText())){
+                  errores.add("Las contraseñas deben de ser iguales");
+        }
+
+        return errores;
 
     }
 
