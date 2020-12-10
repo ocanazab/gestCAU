@@ -1,7 +1,10 @@
 package com.nacho.gestCAU;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -28,13 +31,26 @@ public class ControllerNewUser {
     private Button btnCancel;
 
     @FXML
+    private ChoiceBox comboSistema;
+
+    boolean primeraCarga=false;
+    // Valores para el ChoiceBox
+    ObservableList<String> valoresSistema = FXCollections.observableArrayList("Selecciona un valor", "Crear Incidencias", "Gestionar Incidencias");
+
+
+    @FXML
+    private void initialize() {
+
+        comboSistema.setItems(valoresSistema);
+        comboSistema.setValue("Selecciona un valor");
+
+    }
+
+    @FXML
     private void saveUser(){
-        txtUser.setText("Usuario");
-        txtPass.setText("Password");
-        txtPass2.setText("Password2");
-        txtNombre.setText("Nombre");
-        txtApellidos.setText("Apellidos");
-        txtEmail.setText("Correo");
+        //Guardamos el usuario en la base de datos correspondiente.
+        //Encriptamos la clave introducida.
+
     }
 
     @FXML
@@ -44,9 +60,15 @@ public class ControllerNewUser {
             stage.close();
     }
 
-    //Recibe los datos de otro formulario.
-    public void recibirDatos(String datoRecibido) {
-       txtEmail.setText(datoRecibido);
+    private boolean validarDatos(){
+        boolean resultado=false;
+
+
+
+
+        return resultado;
+
     }
+
 
 }

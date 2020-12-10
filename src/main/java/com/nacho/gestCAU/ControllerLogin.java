@@ -3,10 +3,8 @@ package com.nacho.gestCAU;
 import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.Cifrado;
 
-import com.nacho.gestCAU.util.R;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -32,6 +30,16 @@ public class ControllerLogin {
 
     //Otro tipo de variables
     String passCifrada;
+    String baseDatos;
+
+    public String getBaseDatos() {
+        return baseDatos;
+    }
+
+    public void setBaseDatos(String baseDatos) {
+        this.baseDatos = baseDatos;
+    }
+
     final int claveCifrado=2;
 
 
@@ -121,43 +129,9 @@ public class ControllerLogin {
         }
     }
     @FXML
-    private void Newuser(){
+    private void Newuser() throws IOException {
 
-        if ((!chkCrearIncidencias.isSelected()) && (!chkGestIncidencias.isSelected())){
-            Mensajeria.mostrarError("Faltan datos","Debes seleccionar la base de datos");
-        }else{
-            String baseDatos="";
-            if (chkGestIncidencias.isSelected()){
-                baseDatos="mysql";
-            }
-            if(chkCrearIncidencias.isSelected()){
-                baseDatos="postgre";
-            }
-            //Envio la base de datos seleccionada al formulario de nuevo usuario.
-            enviarDatos(baseDatos);
-            //Muestro el formulario que permite el registro del usuario.
             View vistaNuevousuario = new View();
             vistaNuevousuario.inicioNuevousuario();
         }
-
-    }
-
-    private void enviarDatos(String valor){
-        try {
-            //Cargo el formulario de nuevo usuario
-            FXMLLoader loaderNuevousuario = new FXMLLoader();
-            loaderNuevousuario.setLocation(R.getUI("FormNewUser.fxml"));
-            loaderNuevousuario.setController(new ControllerNewUser());
-            Parent root = loaderNuevousuario.load();
-
-            //Obtengo el controlador de nuevo usuario.
-            ControllerNewUser nuevoUsuario = loaderNuevousuario.getController();
-            //Paso los datos correspondientes
-            nuevoUsuario.recibirDatos(valor);
-
-        } catch (IOException ex) {
-            System.err.println(ex);
-        }
-    }
-
 }
