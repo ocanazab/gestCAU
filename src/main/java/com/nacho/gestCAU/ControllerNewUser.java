@@ -54,6 +54,7 @@ public class ControllerNewUser {
         List<String> resultado = new ArrayList<>();
         String errores="";
         String passwd;
+        String baseDatos="";
         Cifrado cifrarPass = new Cifrado();
         final int claveCifrado=2;
         Model modelo = new Model();
@@ -71,8 +72,16 @@ public class ControllerNewUser {
             //Encripto la contraseña para almacenarla en la base de datos.
             passwd=cifrarPass.cifra(txtPass.getText(),claveCifrado);
 
+            //Me quedo con el valor de la base de datos donde insertar el usuario
 
-            errores = modelo.crearUser(txtUser.getText(),passwd,txtNombre.getText(),txtApellidos.getText(),txtEmail.getText(),"basedatos");
+            switch ((String)comboSistema.getValue()){
+                case "Crear Incidencias":
+                    baseDatos="postgre";
+                case "Gestionar Incidencias":
+                    baseDatos="mysql";
+            }
+
+            errores = modelo.crearUser(txtUser.getText(),passwd,txtNombre.getText(),txtApellidos.getText(),txtEmail.getText(),baseDatos);
 
             if(!errores.isEmpty()){
                 Mensajeria.mostrarError("Error al guardar el usuario",errores);

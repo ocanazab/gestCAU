@@ -1,5 +1,6 @@
 package com.nacho.gestCAU;
 
+import com.nacho.gestCAU.util.Mensajeria;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
@@ -23,7 +24,7 @@ public class Controller {
         Alert alerta = new Alert(Alert.AlertType.ERROR);
         alerta.setTitle("Faltan datos");
         error=false;
-        Boolean resultadoConexion=false;
+        String resultadoConexion="";
 
 
         if (txtUser.getText().equals("")) error=true;
@@ -40,12 +41,14 @@ public class Controller {
 
                 resultadoConexion = modelo.conectarBD("postgre");
 
-                if (resultadoConexion){
+                if (resultadoConexion.isEmpty()){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
                     alerta.setContentText("Conexion a Postgre correcta. Despues validaremos");
                     alerta.show();
                     View vistaCreacion = new View();
                     vistaCreacion.inicioCrearIncidencias();
+                }else{
+                    Mensajeria.mostrarError("Error en la conexión a Postgre",resultadoConexion);
                 }
 
             }
@@ -53,14 +56,15 @@ public class Controller {
                 //Conectamos a MYSQL
                 resultadoConexion=modelo.conectarBD("mysql");
 
-                if(resultadoConexion){
+                if(resultadoConexion.isEmpty()){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
                     alerta.setContentText("Conexion a MYSQL correcta. Despues validaremos");
                     alerta.show();
                     //Mostramos el formulario de la gestión de incidencias
                     View vistaGestion = new View();
                     vistaGestion.inicioGestionIncidencias();
-
+                }else{
+                    Mensajeria.mostrarError("Error en la conexión a MySQL",resultadoConexion);
                 }
             }
         }
