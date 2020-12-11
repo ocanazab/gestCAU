@@ -53,10 +53,14 @@ public class ControllerNewUser {
         //Guardamos el usuario en la base de datos correspondiente.
         List<String> resultado = new ArrayList<>();
         String errores="";
-        String passwd="";
-        resultado=validarDatos();
+        String passwd;
         Cifrado cifrarPass = new Cifrado();
         final int claveCifrado=2;
+        Model modelo = new Model();
+
+        //Valido los datos introducidos en el formulario.
+        resultado=validarDatos();
+
 
         if(!resultado.isEmpty()){
             for(int i=0;i<resultado.size();i++){
@@ -66,7 +70,16 @@ public class ControllerNewUser {
         }else{
             //Encripto la contraseña para almacenarla en la base de datos.
             passwd=cifrarPass.cifra(txtPass.getText(),claveCifrado);
-            Mensajeria.mostrarInfo("Encriptar","Contraseña normal: "+ txtPass.getText()+ "\n" + "Contraseña cifrada: "+passwd);
+
+
+            errores = modelo.crearUser(txtUser.getText(),passwd,txtNombre.getText(),txtApellidos.getText(),txtEmail.getText(),"basedatos");
+
+            if(!errores.isEmpty()){
+                Mensajeria.mostrarError("Error al guardar el usuario",errores);
+            }else{
+                Mensajeria.mostrarInfo("Usuario dado de alta","Usuario: " + txtUser.getText()+ " dado de alta satisfactoriamente."+"\n"+"En la pantalla de login introduce las credenciales.");
+                cancel();
+            }
         }
     }
 
@@ -97,7 +110,7 @@ public class ControllerNewUser {
             errores.add("El nombre no puede estar vacio.");
         }
 
-        if((String) comboSistema.getValue()=="Selecciona un valor"){
+        if(comboSistema.getValue().equals("Selecciona un valor")){
             errores.add("Debes seleccionar un valor para el sistema.");
         }
 
