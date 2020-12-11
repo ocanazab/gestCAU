@@ -49,30 +49,7 @@ public class Model {
         }
         return fallo;
     }
-    
-    /*public void desconectarBD(String baseDatos){
 
-        switch(baseDatos){
-            case "postgre":
-                try{
-                    conexionPostgre.close();
-                    conexionPostgre=null;
-
-                } catch (SQLException throwables) {
-
-                }
-            case "mysql":
-                try{
-                    conexionMYSQL.close();
-                    conexionMYSQL=null;
-
-                } catch (SQLException throwables) {
-
-                }
-        }
-
-    }*/
-    
     public String[] obtenerUser(String usuario, String pass, String baseDatos) throws SQLException {
         //Boolean res=false;
         String sql="SELECT login, password FROM usuarios WHERE login = ?";
@@ -109,7 +86,7 @@ public class Model {
     public String crearUser(String usuario, String pass, String nombre, String apellidos, String email, String baseDatos){
         String error="";
 
-        String sql = "INSERT INTO USUARIOS (login,password,nombre,apellidos,email) VALUES (?,?,?,?)";
+        String sql = "insert into usuarios (login,password,nombre,apellidos,email) VALUES (?,?,?,?,?)";
 
         switch (baseDatos) {
             case "postgre":
@@ -139,6 +116,27 @@ public class Model {
                 }
         }
         return error;
+    }
+
+    public void desconectarBD(String baseDatos){
+
+        switch(baseDatos){
+            case "postgre":
+                try{
+                    conexionPostgre.close();
+                    conexionPostgre=null;
+                } catch (SQLException throwables) {
+
+                }
+            case "mysql":
+                try{
+                    conexionMYSQL.close();
+                    conexionMYSQL=null;
+                } catch (SQLException throwables) {
+
+                }
+        }
+
     }
 
 }

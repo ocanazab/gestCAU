@@ -72,15 +72,16 @@ public class ControllerNewUser {
             //Encripto la contraseña para almacenarla en la base de datos.
             passwd=cifrarPass.cifra(txtPass.getText(),claveCifrado);
 
-            //Me quedo con el valor de la base de datos donde insertar el usuario
+            //Me quedo con el valor de la base de datos donde insertar el usuario, además de conectar a la correspondiente
 
             switch ((String)comboSistema.getValue()){
                 case "Crear Incidencias":
                     baseDatos="postgre";
                 case "Gestionar Incidencias":
                     baseDatos="mysql";
-            }
 
+            }
+            errores = modelo.conectarBD(baseDatos);
             errores = modelo.crearUser(txtUser.getText(),passwd,txtNombre.getText(),txtApellidos.getText(),txtEmail.getText(),baseDatos);
 
             if(!errores.isEmpty()){
