@@ -2,8 +2,8 @@ package com.nacho.gestCAU.util;
 
 public class Cifrado {
 
-    String mayus = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-    String minus = "abcdefghijklmnñopqrstuvwxyz";
+    String mayus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    String minus = "abcdefghijklmnopqrstuvwxyz";
     char [] texto;
     char[] mayusculas;
     char[] minusculas;

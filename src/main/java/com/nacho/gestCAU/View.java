@@ -84,7 +84,6 @@ public class View extends Application {
         loaderNuevousuario.setLocation(R.getUI("FormNewUser.fxml"));
         loaderNuevousuario.setController(new ControllerNewUser());
 
-
         AnchorPane anchorPane = null;
         try {
             anchorPane = loaderNuevousuario.load();
@@ -99,6 +98,7 @@ public class View extends Application {
         stage.setResizable(false);
         stage.setMaximized(false);
         stage.setTitle("Nuevo Usuario");
+
         stage.showAndWait();
 
     }

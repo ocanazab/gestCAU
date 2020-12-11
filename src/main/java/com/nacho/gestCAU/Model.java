@@ -106,35 +106,41 @@ public class Model {
 
 
     }
-    public Boolean crearUser(String usuario, String pass, String baseDatos) throws SQLException {
-        Boolean res = false;
-        String sql = "INSERT INTO USUARIOS () VALUES";
-        String[] resultado = new String[2];
-        resultado[0] = "";
-        resultado[1] = "";
+    public String crearUser(String usuario, String pass, String nombre, String apellidos, String email, String baseDatos){
+        String error="";
+
+        String sql = "INSERT INTO USUARIOS (login,password,nombre,apellidos,email) VALUES (?,?,?,?)";
+
         switch (baseDatos) {
             case "postgre":
-                //Código para validar el usuario en la base de datos de Postgre
-                PreparedStatement sentenciaPostgre = conexionPostgre.prepareStatement(sql);
-                sentenciaPostgre.setString(1, usuario);
-                ResultSet resultadoPostgre = sentenciaPostgre.executeQuery();
-                if (resultadoPostgre.next()) {
-                    resultado[0] = resultadoPostgre.getString(1);
-                    resultado[1] = resultadoPostgre.getString(2);
-                    resultadoPostgre.close();
+                try{
+                    PreparedStatement sentenciaInsert= conexionPostgre.prepareStatement(sql);
+                    sentenciaInsert.setString(1, usuario);
+                    sentenciaInsert.setString(2, pass);
+                    sentenciaInsert.setString(3, nombre);
+                    sentenciaInsert.setString(4, apellidos);
+                    sentenciaInsert.setString(5, email);
+                    sentenciaInsert.executeUpdate();
+
+                }catch (SQLException sqle){
+                    error=sqle.getMessage();
+                    //Mensajeria.mostrarError("Nuevo usuario en Postgre",sqle.getMessage());
                 }
             case "mysql":
-                //Código para validar el usuario en la base de datos de MYSQL
-                PreparedStatement sentenciaMysql = conexionMYSQL.prepareStatement(sql);
-                sentenciaMysql.setString(1, usuario);
-                ResultSet resultadoMysql = sentenciaMysql.executeQuery();
-                if (resultadoMysql.next()) {
-                    resultado[0] = resultadoMysql.getString(1);
-                    resultado[1] = resultadoMysql.getString(2);
-                    resultadoMysql.close();
+                try{
+                    PreparedStatement sentenciaInsert = conexionMYSQL.prepareStatement(sql);
+                    sentenciaInsert.setString(1, usuario);
+                    sentenciaInsert.setString(2, pass);
+                    sentenciaInsert.setString(3, nombre);
+                    sentenciaInsert.setString(4, apellidos);
+                    sentenciaInsert.setString(5, email);
+                    sentenciaInsert.executeUpdate();
+                }catch (SQLException sqle){
+                    error=sqle.getMessage();
+                    //Mensajeria.mostrarError("Nuevo usuario en MySQL",sqle.getMessage());
                 }
         }
-        return res;
+        return error;
     }
 
 }

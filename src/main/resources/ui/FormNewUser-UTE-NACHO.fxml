@@ -20,7 +20,7 @@
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtUser" layoutX="170.0" layoutY="116.0" prefHeight="31.0" prefWidth="275.0" promptText="Introduce el usuario">
+      <TextField fx:id="txtUser" layoutX="170.0" layoutY="116.0" prefHeight="31.0" prefWidth="215.0" promptText="Introduce el usuario">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
@@ -30,7 +30,7 @@
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="txtPass" layoutX="170.0" layoutY="152.0" prefHeight="31.0" prefWidth="275.0" promptText="Introduce el password">
+      <PasswordField fx:id="txtPass" layoutX="170.0" layoutY="152.0" prefHeight="31.0" prefWidth="215.0" promptText="Introduce el password">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
@@ -40,7 +40,7 @@
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Label>
-      <PasswordField fx:id="txtPass2" layoutX="170.0" layoutY="191.0" prefHeight="31.0" prefWidth="275.0" promptText="Confirma el password">
+      <PasswordField fx:id="txtPass2" layoutX="170.0" layoutY="191.0" prefHeight="31.0" prefWidth="215.0" promptText="Confirma el password">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
@@ -50,7 +50,7 @@
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtNombre" layoutX="170.0" layoutY="236.0" prefHeight="31.0" prefWidth="275.0" promptText="Introduce el nombre">
+      <TextField fx:id="txtNombre" layoutX="170.0" layoutY="236.0" prefHeight="31.0" prefWidth="215.0" promptText="Introduce el nombre">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
@@ -60,7 +60,7 @@
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtApellidos" layoutX="170.0" layoutY="278.0" prefHeight="31.0" prefWidth="275.0" promptText="Introduce los apellidos">
+      <TextField fx:id="txtApellidos" layoutX="170.0" layoutY="278.0" prefHeight="31.0" prefWidth="342.0" promptText="Introduce los apellidos">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
@@ -70,7 +70,7 @@
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEmail" layoutX="170.0" layoutY="317.0" prefHeight="31.0" prefWidth="275.0" promptText="e-mail">
+      <TextField fx:id="txtEmail" layoutX="170.0" layoutY="317.0" prefHeight="31.0" prefWidth="215.0" promptText="e-mail">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>

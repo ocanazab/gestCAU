@@ -38,10 +38,6 @@ public class ControllerNewUser {
     @FXML
     private ChoiceBox comboSistema;
 
-    boolean primeraCarga=false;
-
-
-
     @FXML
     private void initialize() {
         // Valores para el ChoiceBox
@@ -57,13 +53,20 @@ public class ControllerNewUser {
         //Guardamos el usuario en la base de datos correspondiente.
         List<String> resultado = new ArrayList<>();
         String errores="";
+        String passwd="";
         resultado=validarDatos();
+        Cifrado cifrarPass = new Cifrado();
+        final int claveCifrado=2;
 
         if(!resultado.isEmpty()){
             for(int i=0;i<resultado.size();i++){
-
+                errores=errores + resultado.get(i) + "\n";
             }
             Mensajeria.mostrarError("Error en la validación",errores);
+        }else{
+            //Encripto la contraseña para almacenarla en la base de datos.
+            passwd=cifrarPass.cifra(txtPass.getText(),claveCifrado);
+            Mensajeria.mostrarInfo("Encriptar","Contraseña normal: "+ txtPass.getText()+ "\n" + "Contraseña cifrada: "+passwd);
         }
     }
 
@@ -81,6 +84,13 @@ public class ControllerNewUser {
 
         if (txtUser.getText().isEmpty()){
             errores.add("El usuario no puede estar vacio.");
+
+        }
+
+        if(txtPass.getText().isEmpty()||txtPass2.getText().isEmpty()){
+            errores.add("La contraseña no puede estar en blanco");
+        }else if(!txtPass.getText().equals(txtPass2.getText())){
+            errores.add("Las contraseñas deben de ser iguales");
         }
 
         if(txtNombre.getText().isEmpty()){
@@ -89,12 +99,6 @@ public class ControllerNewUser {
 
         if((String) comboSistema.getValue()=="Selecciona un valor"){
             errores.add("Debes seleccionar un valor para el sistema.");
-        }
-
-        if(txtPass.getText().isEmpty()||txtPass2.getText().isEmpty()){
-            errores.add("La contraseña no puede estar en blanco");
-        }else if(!txtPass.getText().equals(txtPass2.getText())){
-                  errores.add("Las contraseñas deben de ser iguales");
         }
 
         return errores;

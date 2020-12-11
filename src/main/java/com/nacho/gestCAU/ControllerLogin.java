@@ -30,15 +30,6 @@ public class ControllerLogin {
 
     //Otro tipo de variables
     String passCifrada;
-    String baseDatos;
-
-    public String getBaseDatos() {
-        return baseDatos;
-    }
-
-    public void setBaseDatos(String baseDatos) {
-        this.baseDatos = baseDatos;
-    }
 
     final int claveCifrado=2;
 
@@ -130,8 +121,7 @@ public class ControllerLogin {
     }
     @FXML
     private void Newuser() throws IOException {
-
             View vistaNuevousuario = new View();
             vistaNuevousuario.inicioNuevousuario();
-        }
+    }
 }
