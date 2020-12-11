@@ -77,18 +77,21 @@ public class ControllerNewUser {
             switch ((String)comboSistema.getValue()){
                 case "Crear Incidencias":
                     baseDatos="postgre";
+                    Mensajeria.mostrarInfo("Postgre","postgre");
                 case "Gestionar Incidencias":
                     baseDatos="mysql";
-
+                    Mensajeria.mostrarInfo("MYSQL","mysql");
             }
-            errores = modelo.conectarBD(baseDatos);
-            errores = modelo.crearUser(txtUser.getText(),passwd,txtNombre.getText(),txtApellidos.getText(),txtEmail.getText(),baseDatos);
+            //errores = modelo.conectarBD(baseDatos);
+            //errores = modelo.crearUser(txtUser.getText(),passwd,txtNombre.getText(),txtApellidos.getText(),txtEmail.getText(),baseDatos);
+            Mensajeria.mostrarInfo("Base Datos",baseDatos + "\n" + comboSistema.getValue());
 
             if(!errores.isEmpty()){
                 Mensajeria.mostrarError("Error al guardar el usuario",errores);
             }else{
                 Mensajeria.mostrarInfo("Usuario dado de alta","Usuario: " + txtUser.getText()+ " dado de alta satisfactoriamente."+"\n"+"En la pantalla de login introduce las credenciales.");
                 cancel();
+                modelo.desconectarBD(baseDatos);
             }
         }
     }

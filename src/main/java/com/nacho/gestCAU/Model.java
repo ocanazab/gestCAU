@@ -86,11 +86,12 @@ public class Model {
     public String crearUser(String usuario, String pass, String nombre, String apellidos, String email, String baseDatos){
         String error="";
 
-        String sql = "insert into usuarios (login,password,nombre,apellidos,email) VALUES (?,?,?,?,?)";
+        //String sql = "insert into usuarios (login,password,nombre,apellidos,email) VALUES (?,?,?,?,?)";
 
         switch (baseDatos) {
             case "postgre":
                 try{
+                    String sql = "insert into gestIncidencias.usuarios (login,password,nombre,apellidos,email) VALUES (?,?,?,?,?)";
                     PreparedStatement sentenciaInsert= conexionPostgre.prepareStatement(sql);
                     sentenciaInsert.setString(1, usuario);
                     sentenciaInsert.setString(2, pass);
@@ -104,6 +105,7 @@ public class Model {
                 }
             case "mysql":
                 try{
+                    String sql = "insert into gestCAU.usuarios (login,password,nombre,apellidos,email) VALUES (?,?,?,?,?)";
                     PreparedStatement sentenciaInsert = conexionMYSQL.prepareStatement(sql);
                     sentenciaInsert.setString(1, usuario);
                     sentenciaInsert.setString(2, pass);
