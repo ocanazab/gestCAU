@@ -124,7 +124,6 @@ public class Model {
 
                 }catch (SQLException sqle){
                     error=sqle.getMessage();
-                    //Mensajeria.mostrarError("Nuevo usuario en Postgre",sqle.getMessage());
                 }
             case "mysql":
                 try{
@@ -137,7 +136,6 @@ public class Model {
                     sentenciaInsert.executeUpdate();
                 }catch (SQLException sqle){
                     error=sqle.getMessage();
-                    //Mensajeria.mostrarError("Nuevo usuario en MySQL",sqle.getMessage());
                 }
         }
         return error;
