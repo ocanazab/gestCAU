@@ -100,7 +100,6 @@ public class ControllerLogin {
 
                     //Desencriptamos la contraseña:
                     passDescifrada=descifraPass.descifra(passBD,claveCifrado);
-                    Mensajeria.mostrarInfo("Validacion MYSQL","UsuarioBD: "+usuarioBD + "\n" + "Usuario Text: " + txtUser.getText()+ "\n" + "PassBD: " + passDescifrada + "\n" + "Pass Text: " + txtPass.getText());
 
                     if (txtUser.getText().equals(usuarioBD)&&txtPass.getText().equals(passDescifrada)){
                         View vistaCreacion = new View();
