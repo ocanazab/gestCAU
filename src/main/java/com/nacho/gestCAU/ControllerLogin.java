@@ -29,8 +29,9 @@ public class ControllerLogin {
     private Button btnLogin;
 
     //Otro tipo de variables
-    String passCifrada;
+    String passDescifrada;
 
+    //Constantes
     final int claveCifrado=2;
 
 
@@ -51,11 +52,8 @@ public class ControllerLogin {
         }else{
 
             Model modelo= new Model();
+            Cifrado descifraPass = new Cifrado();
 
-
-            //Ciframos la contraseña introducida.
-            Cifrado cifraPass = new Cifrado();
-            passCifrada=cifraPass.cifra(txtPass.getText(),claveCifrado);
 
             //Si el usuario ha seleccionado la creación de incidencias
             if(chkCrearIncidencias.isSelected()){
@@ -70,7 +68,10 @@ public class ControllerLogin {
                     usuarioBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"postgre")[0];
                     passBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"postgre")[1];
 
-                    if (usuarioBD.equals(txtUser.getText()) && passBD.equals(txtPass.getText())){
+                    //Desencriptamos la contraseña:
+                    passDescifrada=descifraPass.descifra(passBD,claveCifrado);
+
+                    if (txtUser.getText().equals(usuarioBD)&&txtPass.getText().equals(passDescifrada)){
                         View vistaCreacion = new View();
                         vistaCreacion.inicioCrearIncidencias();
 
@@ -91,15 +92,17 @@ public class ControllerLogin {
 
                 if (resultadoConexion.isEmpty()){
                     //Una vez la conexion es correcta, deberemos validar el usuario en base de datos.
-                    //modelo.validarUser(txtUser.getText(),passCifrada,"postgre")
-
                     //Obtenemos las credenciales almacenadas en BD y comparamos con los introducidos
                     String usuarioBD;
                     String passBD;
                     usuarioBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"mysql")[0];
                     passBD=modelo.obtenerUser(txtUser.getText(),txtPass.getText(),"mysql")[1];
 
-                    if (usuarioBD.equals(txtUser.getText()) && passBD.equals(txtPass.getText())){
+                    //Desencriptamos la contraseña:
+                    passDescifrada=descifraPass.descifra(passBD,claveCifrado);
+                    Mensajeria.mostrarInfo("Validacion MYSQL","UsuarioBD: "+usuarioBD + "\n" + "Usuario Text: " + txtUser.getText()+ "\n" + "PassBD: " + passDescifrada + "\n" + "Pass Text: " + txtPass.getText());
+
+                    if (txtUser.getText().equals(usuarioBD)&&txtPass.getText().equals(passDescifrada)){
                         View vistaCreacion = new View();
                         vistaCreacion.inicioGestionIncidencias();
 
@@ -108,7 +111,7 @@ public class ControllerLogin {
                         error=true;
                     }
                 }else{
-                    Mensajeria.mostrarError("Error en conexion a Postgre",resultadoConexion);
+                    Mensajeria.mostrarError("Error en conexion a MySQL",resultadoConexion);
                     error=true;
                 }
             }

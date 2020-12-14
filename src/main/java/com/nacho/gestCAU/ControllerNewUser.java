@@ -38,6 +38,8 @@ public class ControllerNewUser {
     @FXML
     private ChoiceBox comboSistema;
 
+    final int claveCifrado=2;
+
     @FXML
     private void initialize() {
         // Valores para el ChoiceBox
@@ -56,7 +58,7 @@ public class ControllerNewUser {
         String passwd;
         String baseDatos="";
         Cifrado cifrarPass = new Cifrado();
-        final int claveCifrado=2;
+
         Model modelo = new Model();
 
         //Valido los datos introducidos en el formulario.
@@ -69,9 +71,6 @@ public class ControllerNewUser {
             }
             Mensajeria.mostrarError("Error en la validación",errores);
         }else{
-            //Encripto la contraseña para almacenarla en la base de datos.
-            passwd=cifrarPass.cifra(txtPass.getText(),claveCifrado);
-
             //Me quedo con el valor de la base de datos donde insertar el usuario, además de conectar a la correspondiente
 
             switch ((String)comboSistema.getValue()){
@@ -82,6 +81,8 @@ public class ControllerNewUser {
                     baseDatos="mysql";
             }
             errores = modelo.conectarBD(baseDatos);
+            //Encripto la contraseña para almacenarla en la base de datos.
+            passwd=cifrarPass.cifra(txtPass.getText(),claveCifrado);
             errores = modelo.crearUser(txtUser.getText(),passwd,txtNombre.getText(),txtApellidos.getText(),txtEmail.getText(),baseDatos);
 
             if(!errores.isEmpty()){

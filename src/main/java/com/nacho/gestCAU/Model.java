@@ -67,6 +67,7 @@ public class Model {
                     resultado[1]=resultadoPostgre.getString(2);
                     resultadoPostgre.close();
                 }
+                break;
             case "mysql":
                 //Código para validar el usuario en la base de datos de MYSQL
                 PreparedStatement sentenciaMysql = conexionMYSQL.prepareStatement(sql);
@@ -103,6 +104,7 @@ public class Model {
                 }catch (SQLException sqle){
                     error=sqle.getMessage();
                 }
+                break;
             case "mysql":
                 try{
                     String sql = "insert into usuarios (login,password,nombre,apellidos,email) VALUES (?,?,?,?,?)";
@@ -130,6 +132,7 @@ public class Model {
                 } catch (SQLException throwables) {
 
                 }
+                break;
             case "mysql":
                 try{
                     conexionMYSQL.close();
