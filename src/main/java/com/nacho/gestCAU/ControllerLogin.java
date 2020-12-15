@@ -76,8 +76,8 @@ public class ControllerLogin {
                     passDescifrada=descifraPass.descifra(passBD,claveCifrado);
 
                     if (txtUser.getText().equals(usuarioBD)&&txtPass.getText().equals(passDescifrada)){
-                        //Guardo el login de usuario recien creado.
-
+                        //Guardo el login de usuario recien creado y la base de datos.
+                        intercambio.setBaseDatos("postgre");
                         intercambio.setUsuario(usuarioBD);
 
                         //Muestro la ventana de creación de incidencias.

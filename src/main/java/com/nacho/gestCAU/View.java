@@ -47,9 +47,9 @@ public class View extends Application {
         try {
             AnchorPane anchorPane = loaderCrearIncidencias.load();
 
-            //Habilito el paso de parametros
+            //Habilito el paso de parametros y envio el usuario y la base de datos.
             ControllerCreacion controlador = loaderCrearIncidencias.getController();
-            controlador.setData(Traspaso.usuario);
+            controlador.setData(Traspaso.usuario, Traspaso.baseDatos);
 
             Scene scene= new Scene(anchorPane);
             Stage stage = new Stage();

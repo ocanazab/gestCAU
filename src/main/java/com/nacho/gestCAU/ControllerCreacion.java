@@ -1,16 +1,27 @@
 package com.nacho.gestCAU;
 
-import com.nacho.gestCAU.util.Traspaso;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 public class ControllerCreacion {
-
     @FXML
     private TextArea txtDescripcion;
+    @FXML
+    private Label lblUsuario;
+    @FXML
+    private Label lblbaseDatos;
 
-    public void setData(String data){
-        txtDescripcion.setText(data);
+
+    @FXML
+    private void initialize() {
+
+    }
+
+    public void setData(String usuario, String baseDatos){
+
+        lblUsuario.setText(lblUsuario.getText() + usuario);
+        lblbaseDatos.setText(lblbaseDatos.getText() + baseDatos);
 
     }
 
