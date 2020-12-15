@@ -4,6 +4,7 @@ import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.Cifrado;
 
 
+import com.nacho.gestCAU.util.Traspaso;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class ControllerLogin {
@@ -30,6 +32,8 @@ public class ControllerLogin {
 
     //Otro tipo de variables
     String passDescifrada;
+
+    public Traspaso intercambio = new Traspaso();
 
     //Constantes
     final int claveCifrado=2;
@@ -72,6 +76,11 @@ public class ControllerLogin {
                     passDescifrada=descifraPass.descifra(passBD,claveCifrado);
 
                     if (txtUser.getText().equals(usuarioBD)&&txtPass.getText().equals(passDescifrada)){
+                        //Guardo el login de usuario recien creado.
+
+                        intercambio.setUsuario(usuarioBD);
+
+                        //Muestro la ventana de creación de incidencias.
                         View vistaCreacion = new View();
                         vistaCreacion.inicioCrearIncidencias();
 

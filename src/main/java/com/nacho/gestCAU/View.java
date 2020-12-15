@@ -1,16 +1,22 @@
 package com.nacho.gestCAU;
+import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.R;
 
+import com.nacho.gestCAU.util.Traspaso;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class View extends Application {
+
+    public ArrayList<String> usuario = new ArrayList<String>();
 
     @Override
     public void init() throws Exception {
@@ -19,11 +25,11 @@ public class View extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(R.getUI("FormLogin.fxml"));
-        loader.setController(new ControllerLogin());
+        FXMLLoader loaderLogin = new FXMLLoader();
+        loaderLogin.setLocation(R.getUI("FormLogin.fxml"));
+        loaderLogin.setController(new ControllerLogin());
 
-        AnchorPane anchorPane = loader.load();
+        AnchorPane anchorPane = loaderLogin.load();
 
         Scene scene= new Scene(anchorPane);
         stage.setScene(scene);
@@ -38,20 +44,28 @@ public class View extends Application {
         loaderCrearIncidencias.setLocation(R.getUI("FormCrearIncidencias.fxml"));
         loaderCrearIncidencias.setController(new ControllerCreacion());
 
-        AnchorPane anchorPane = null;
         try {
-            anchorPane = loaderCrearIncidencias.load();
+            AnchorPane anchorPane = loaderCrearIncidencias.load();
+
+            //Habilito el paso de parametros
+            ControllerCreacion controlador = loaderCrearIncidencias.getController();
+            controlador.setData(Traspaso.usuario);
+
+            Scene scene= new Scene(anchorPane);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setMaximized(false);
+            stage.setTitle("Creación de incidencias");
+
+            stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Scene scene= new Scene(anchorPane);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setMaximized(false);
-        stage.setTitle("Creación de incidencias");
-        stage.show();
+
+
 
     }
 

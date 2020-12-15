@@ -2,6 +2,7 @@ com/nacho/gestCAU/ControllerLogin.class
 com/nacho/gestCAU/util/Cifrado.class
 com/nacho/gestCAU/util/Mensajeria.class
 com/nacho/gestCAU/ControllerCreacion.class
+com/nacho/gestCAU/util/Traspaso.class
 com/nacho/gestCAU/ControllerGestion.class
 com/nacho/gestCAU/util/R.class
 com/nacho/gestCAU/ControllerNewUser.class

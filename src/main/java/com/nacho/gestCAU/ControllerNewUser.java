@@ -88,7 +88,7 @@ public class ControllerNewUser {
             if(!errores.isEmpty()){
                 Mensajeria.mostrarError("Error al guardar el usuario",errores);
             }else{
-                Mensajeria.mostrarInfo("Usuario dado de alta","Usuario: " + txtUser.getText()+ " dado de alta satisfactoriamente."+"\n"+"En la pantalla de login introduce las credenciales.");
+                Mensajeria.mostrarInfo("Usuario dado de alta",txtUser.getText()+ " dado de alta satisfactoriamente."+"\n"+"En la pantalla de login introduce las credenciales.");
                 cancel();
                 modelo.desconectarBD(baseDatos);
             }

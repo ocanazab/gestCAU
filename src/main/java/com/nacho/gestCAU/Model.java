@@ -122,6 +122,16 @@ public class Model {
         return error;
     }
 
+    public void listaIncidencias(String usuario, String baseDatos){
+        //Muestra las incidencias del usuario conectado.
+        switch (baseDatos){
+            case "postgre":
+                break;
+            case "mysql":
+        }
+
+    }
+
     public void desconectarBD(String baseDatos){
 
         switch(baseDatos){
