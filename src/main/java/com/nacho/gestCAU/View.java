@@ -106,9 +106,6 @@ public class View extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        Model modelo = new Model();
-        modelo.desconectarBD("mysql");
-        modelo.desconectarBD("postgre");
     }
 
     public static void main(String[] args) {
