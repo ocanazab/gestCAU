@@ -126,6 +126,7 @@ public class Model {
         //Muestra las incidencias del usuario conectado.
         switch (baseDatos){
             case "postgre":
+                Mensajeria.mostrarInfo("Listado","Lista de incidencias");
                 break;
             case "mysql":
         }
