@@ -12,18 +12,9 @@ public class ControllerCreacion {
     public String bd;
 
     public void setData(String usuario, String baseDatos){
-
-        //lblUsuario.setText(usuario);
-        //lblbaseDatos.setText(baseDatos);
         usu=usuario;
         bd=baseDatos;
     }
-
-    public void muestraDatos(){
-        System.out.println(usu);
-        System.out.println(bd);
-    }
-
 
     @FXML
     public TextArea txtDescripcion;
@@ -33,7 +24,6 @@ public class ControllerCreacion {
     public void initialize() {
         Model modelo = new Model();
         modelo.listaIncidencias(usu,bd);
-        muestraDatos();
 
     }
 

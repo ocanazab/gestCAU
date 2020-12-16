@@ -45,15 +45,8 @@ public class View extends Application {
         controlador.setData(intercambio.usuario, intercambio.baseDatos);
         loaderCrearIncidencias.setController(controlador);
 
-
-        //loaderCrearIncidencias.setController(new ControllerCreacion());
-
         try {
             AnchorPane anchorPane = loaderCrearIncidencias.load();
-
-            //Habilito el paso de parametros y envio el usuario y la base de datos.
-            //ControllerCreacion controlador = loaderCrearIncidencias.getController();
-            //controlador.setData(Traspaso.usuario,Traspaso.baseDatos);
 
             Scene scene= new Scene(anchorPane);
             Stage stage = new Stage();
@@ -68,15 +61,6 @@ public class View extends Application {
             e.printStackTrace();
         }
     }
-
-    /*FXMLLoader loaderCrearIncidencias = new FXMLLoader();
-loaderCrearIncidencias.setLocation(R.getUI("FormCrearIncidencias.fxml"));
-ControllerCreacion controlador = new ControllerCreacion();
-controlador.setData(intercambio.usuario, intercambio.baseDatos);
-loaderCrearIncidencias.setController(controller);
-
-try {
-    AnchorPane anchorPane = loaderCrearIncidencias.load();*/
 
     public void inicioGestionIncidencias (){
         FXMLLoader loaderGestionIncidencias = new FXMLLoader();
