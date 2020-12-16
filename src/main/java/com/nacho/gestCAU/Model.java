@@ -129,6 +129,7 @@ public class Model {
         //Muestra las incidencias del usuario conectado.
 
         List<Incidenciaspostgre> listado = null;
+        Incidenciaspostgre incid = new Incidenciaspostgre();
 
         switch (baseDatos){
             case "postgre":
@@ -137,8 +138,9 @@ public class Model {
                     PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre);
                     ResultSet incidencias=obtenerIncidencias.executeQuery();
                     while (incidencias.next()){
-                        //listado.add(incidencias.getString(0));
-                        //listado.add(incidencias.getString(1));
+                        incid.setDescripcion(incidencias.getString(0));
+                        incid.setFechaCreacion(incidencias.getString(1));
+                        listado.add(incid);
                     }
 
                 }catch(SQLException sqle){

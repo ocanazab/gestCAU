@@ -8,12 +8,12 @@ import java.text.SimpleDateFormat;
 public class Incidenciaspostgre  {
     public SimpleStringProperty codIncidencia;
     public SimpleStringProperty descripcion;
-    public SimpleDateFormat fechaCreacion;
+    public SimpleStringProperty fechaCreacion;
     public SimpleStringProperty indBorrado;
     public SimpleStringProperty indTraspaso;
     public SimpleStringProperty codUsuario;
 
-    public Incidenciaspostgre(SimpleStringProperty codIncidencia, SimpleStringProperty descripcion, SimpleDateFormat fechaCreacion, SimpleStringProperty indBorrado, SimpleStringProperty indTraspaso, SimpleStringProperty codUsuario) {
+    public Incidenciaspostgre(SimpleStringProperty codIncidencia, SimpleStringProperty descripcion, SimpleStringProperty fechaCreacion, SimpleStringProperty indBorrado, SimpleStringProperty indTraspaso, SimpleStringProperty codUsuario) {
         this.codIncidencia = codIncidencia;
         this.descripcion = descripcion;
         this.fechaCreacion = fechaCreacion;
@@ -50,12 +50,16 @@ public class Incidenciaspostgre  {
         this.descripcion.set(descripcion);
     }
 
-    public SimpleDateFormat getFechaCreacion() {
+    public SimpleStringProperty getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(SimpleDateFormat fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public SimpleStringProperty fechaCreacionProperty() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion.set(fechaCreacion);
     }
 
     public String getIndBorrado() {
