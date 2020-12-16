@@ -4,7 +4,7 @@ import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.Cifrado;
 
 
-import com.nacho.gestCAU.util.Traspaso;
+import com.nacho.gestCAU.util.TraspasoDTO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -33,7 +33,8 @@ public class ControllerLogin {
     //Otro tipo de variables
     String passDescifrada;
 
-    public Traspaso intercambio = new Traspaso();
+    public TraspasoDTO intercambio = new TraspasoDTO();
+
 
     //Constantes
     final int claveCifrado=2;
@@ -77,12 +78,13 @@ public class ControllerLogin {
 
                     if (txtUser.getText().equals(usuarioBD)&&txtPass.getText().equals(passDescifrada)){
                         //Guardo el login de usuario recien creado y la base de datos.
-                        intercambio.setBaseDatos("postgre");
-                        intercambio.setUsuario(usuarioBD);
+                        intercambio.baseDatos="postgre";
+                        intercambio.usuario=usuarioBD;
+
 
                         //Muestro la ventana de creación de incidencias.
                         View vistaCreacion = new View();
-                        vistaCreacion.inicioCrearIncidencias();
+                        vistaCreacion.inicioCrearIncidencias(intercambio);
 
                     }else{
                         Mensajeria.mostrarError("Validación","Credenciales incorrectos.");

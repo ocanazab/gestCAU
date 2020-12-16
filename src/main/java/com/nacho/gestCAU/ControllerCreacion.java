@@ -1,33 +1,40 @@
 package com.nacho.gestCAU;
 
+import com.nacho.gestCAU.util.Mensajeria;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ControllerCreacion implements Initializable {
-    @FXML
-    private TextArea txtDescripcion;
-    @FXML
-    private Label lblUsuario;
-    @FXML
-    private Label lblbaseDatos;
+public class ControllerCreacion {
 
+    public String usu;
+    public String bd;
 
-    @FXML
     public void setData(String usuario, String baseDatos){
 
-        lblUsuario.setText(usuario);
-        lblbaseDatos.setText(baseDatos);
-
+        //lblUsuario.setText(usuario);
+        //lblbaseDatos.setText(baseDatos);
+        usu=usuario;
+        bd=baseDatos;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void muestraDatos(){
+        System.out.println(usu);
+        System.out.println(bd);
+    }
+
+
+    @FXML
+    public TextArea txtDescripcion;
+    public Label lblUsuario;
+    public Label lblbaseDatos;
+
+    public void initialize() {
         Model modelo = new Model();
-        modelo.listaIncidencias(lblUsuario.getText(),lblbaseDatos.getText());
+        modelo.listaIncidencias(usu,bd);
+        muestraDatos();
+
     }
+
 }

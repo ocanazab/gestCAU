@@ -2,10 +2,9 @@ package com.nacho.gestCAU;
 import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.R;
 
-import com.nacho.gestCAU.util.Traspaso;
+import com.nacho.gestCAU.util.TraspasoDTO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -39,17 +38,22 @@ public class View extends Application {
         stage.show();
     }
 
-    public void inicioCrearIncidencias (){
+    public void inicioCrearIncidencias (TraspasoDTO intercambio){
         FXMLLoader loaderCrearIncidencias = new FXMLLoader();
         loaderCrearIncidencias.setLocation(R.getUI("FormCrearIncidencias.fxml"));
-        loaderCrearIncidencias.setController(new ControllerCreacion());
+        ControllerCreacion controlador = new ControllerCreacion();
+        controlador.setData(intercambio.usuario, intercambio.baseDatos);
+        loaderCrearIncidencias.setController(controlador);
+
+
+        //loaderCrearIncidencias.setController(new ControllerCreacion());
 
         try {
             AnchorPane anchorPane = loaderCrearIncidencias.load();
 
             //Habilito el paso de parametros y envio el usuario y la base de datos.
-            ControllerCreacion controlador = loaderCrearIncidencias.getController();
-            controlador.setData(Traspaso.usuario, Traspaso.baseDatos);
+            //ControllerCreacion controlador = loaderCrearIncidencias.getController();
+            //controlador.setData(Traspaso.usuario,Traspaso.baseDatos);
 
             Scene scene= new Scene(anchorPane);
             Stage stage = new Stage();
@@ -63,11 +67,16 @@ public class View extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
     }
+
+    /*FXMLLoader loaderCrearIncidencias = new FXMLLoader();
+loaderCrearIncidencias.setLocation(R.getUI("FormCrearIncidencias.fxml"));
+ControllerCreacion controlador = new ControllerCreacion();
+controlador.setData(intercambio.usuario, intercambio.baseDatos);
+loaderCrearIncidencias.setController(controller);
+
+try {
+    AnchorPane anchorPane = loaderCrearIncidencias.load();*/
 
     public void inicioGestionIncidencias (){
         FXMLLoader loaderGestionIncidencias = new FXMLLoader();
