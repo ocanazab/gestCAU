@@ -1,6 +1,9 @@
 package com.nacho.gestCAU;
 
+import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -122,14 +125,29 @@ public class Model {
         return error;
     }
 
-    public void listaIncidencias(String usuario, String baseDatos){
+    public List<Incidenciaspostgre> listaIncidencias(String usuario, String baseDatos) {
         //Muestra las incidencias del usuario conectado.
+
+        List<Incidenciaspostgre> listado = null;
+
         switch (baseDatos){
             case "postgre":
-                Mensajeria.mostrarInfo("Listado","Lista de incidencias");
+                try{
+                    String sqlPostgre="select descripcion, fecha_creacion from incidencias";
+                    PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre);
+                    ResultSet incidencias=obtenerIncidencias.executeQuery();
+                    while (incidencias.next()){
+                        //listado.add(incidencias.getString(0));
+                        //listado.add(incidencias.getString(1));
+                    }
+
+                }catch(SQLException sqle){
+                    Mensajeria.mostrarError("Listado de incidencias usuario","Error al obtener las incidencias: " + "\n" + sqle.getMessage());
+                }
                 break;
             case "mysql":
         }
+        return listado;
 
     }
 

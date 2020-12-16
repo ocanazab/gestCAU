@@ -8,8 +8,8 @@ import javafx.scene.control.TextArea;
 
 public class ControllerCreacion {
 
-    public String usu;
-    public String bd;
+    private String usu;
+    private String bd;
 
     public void setData(String usuario, String baseDatos){
         usu=usuario;
@@ -17,11 +17,10 @@ public class ControllerCreacion {
     }
 
     @FXML
-    public TextArea txtDescripcion;
-    public Label lblUsuario;
-    public Label lblbaseDatos;
+    private void initialize() {
+        //Obtengo los datos de las incidencias del usuario conectado.
+        //Los muestro en el TableView
 
-    public void initialize() {
         Model modelo = new Model();
         modelo.listaIncidencias(usu,bd);
 
