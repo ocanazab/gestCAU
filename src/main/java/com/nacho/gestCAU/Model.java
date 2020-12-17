@@ -2,13 +2,11 @@ package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class Model {
@@ -19,7 +17,7 @@ public class Model {
 
     public String conectarBD(String baseDatos){
         String fallo="";
-        Mensajeria mensaje = new Mensajeria();
+
         switch (baseDatos){
             case "postgre":
                 try{
