@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +152,30 @@ public class Model {
         }
         return listado;
 
+    }
+
+    public String crearIncidencia(String descripcion, String fechaCreacion, String indBorrado, String indTraspaso, String usuario, String baseDatos){
+        String resultado="";
+
+        switch (baseDatos){
+            case "postgre":
+                try{
+                    String sqlPostgre = "insert into incidencias (descripcion,fecha_creacion,ind_borrado,ind_traspaso,codusuario) values (?,?,?,?,?)";
+                    PreparedStatement sentenciaInsert= conexionPostgre.prepareStatement(sqlPostgre);
+                    sentenciaInsert.setString(1, descripcion);
+                    sentenciaInsert.setString(2,fechaCreacion);
+                    sentenciaInsert.setString(3, indBorrado);
+                    sentenciaInsert.setString(4, indTraspaso);
+                    sentenciaInsert.setString(5, usuario);
+                    sentenciaInsert.executeUpdate();
+                }catch(SQLException sqle){
+                    resultado = sqle.getMessage();
+                    break;
+                }
+                break;
+            case "mysql":
+        }
+        return resultado;
     }
 
     public void desconectarBD(String baseDatos){

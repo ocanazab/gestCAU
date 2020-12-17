@@ -40,17 +40,17 @@
          </font>
       </Label>
       <TextArea fx:id="txtDescripcion" layoutX="154.0" layoutY="387.0" prefHeight="108.0" prefWidth="470.0" promptText="Introduce la descripcion de la incidencia" wrapText="true" />
-      <Button fx:id="btnNueva" layoutX="92.0" layoutY="523.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="141.0" text="Nueva">
+      <Button fx:id="btnNueva" layoutX="92.0" layoutY="523.0" mnemonicParsing="false" onAction="#newIncidencia" prefHeight="53.0" prefWidth="141.0" text="Nueva">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnModificar" layoutX="242.0" layoutY="523.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="141.0" text="Modificar">
+      <Button fx:id="btnModificar" layoutX="242.0" layoutY="523.0" mnemonicParsing="false" onAction="#modifIncidencia" prefHeight="53.0" prefWidth="141.0" text="Modificar">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="396.0" layoutY="523.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="141.0" text="Eliminar">
+      <Button fx:id="btnEliminar" layoutX="396.0" layoutY="523.0" mnemonicParsing="false" onAction="#removeIncidencia" prefHeight="53.0" prefWidth="141.0" text="Eliminar">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
