@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    //private Connection conexionPostgre, conexionMYSQL;
+
     private Connection conexionPostgre = null;
     private Connection conexionMYSQL = null;
 
@@ -91,8 +91,6 @@ public class Model {
     public String crearUser(String usuario, String pass, String nombre, String apellidos, String email, String baseDatos){
         String error="";
 
-        //String sql = "insert into usuarios (login,password,nombre,apellidos,email) VALUES (?,?,?,?,?)";
-
         switch (baseDatos) {
             case "postgre":
                 try{
@@ -154,28 +152,29 @@ public class Model {
 
     }
 
-    public String crearIncidencia(String descripcion, String fechaCreacion, String indBorrado, String indTraspaso, String usuario, String baseDatos){
-        String resultado="";
-
+    public String crearIncidencia(String descripcion, LocalDate fechaCreacion, int indBorrado, int indTraspaso, String usuario, String baseDatos){
+        String error="";
+        //Mensajeria.mostrarInfo("Insertar incidencia",descripcion+fechaCreacion+indBorrado+indTraspaso+usuario+baseDatos);
         switch (baseDatos){
             case "postgre":
                 try{
                     String sqlPostgre = "insert into incidencias (descripcion,fecha_creacion,ind_borrado,ind_traspaso,codusuario) values (?,?,?,?,?)";
                     PreparedStatement sentenciaInsert= conexionPostgre.prepareStatement(sqlPostgre);
                     sentenciaInsert.setString(1, descripcion);
-                    sentenciaInsert.setString(2,fechaCreacion);
-                    sentenciaInsert.setString(3, indBorrado);
-                    sentenciaInsert.setString(4, indTraspaso);
-                    sentenciaInsert.setString(5, usuario);
+                    sentenciaInsert.setDate(2, Date.valueOf(fechaCreacion));
+                    sentenciaInsert.setInt(3, indBorrado);
+                    sentenciaInsert.setInt(4, indTraspaso);
+                    //Para probar. Revisar lo del codigo del usuario
+                    sentenciaInsert.setInt(5, 1);
                     sentenciaInsert.executeUpdate();
                 }catch(SQLException sqle){
-                    resultado = sqle.getMessage();
+                    error = sqle.getMessage();
                     break;
                 }
                 break;
             case "mysql":
         }
-        return resultado;
+        return error;
     }
 
     public void desconectarBD(String baseDatos){

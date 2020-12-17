@@ -32,7 +32,9 @@ public class ControllerLogin {
 
     //Otro tipo de variables
     String passDescifrada;
+    String baseDatos;
 
+    //Objeto para el traspaso de datos entre controladores
     public TraspasoDTO intercambio = new TraspasoDTO();
 
 
@@ -67,6 +69,7 @@ public class ControllerLogin {
 
 
                 if (resultadoConexion.isEmpty()){
+                    baseDatos="postgre";
                     //Obtenemos las credenciales almacenadas en BD y comparamos con los introducidos
                     String usuarioBD;
                     String passBD;
@@ -98,6 +101,7 @@ public class ControllerLogin {
 
             //Si el usuario ha seleccionado la gestión de incidencias
             if(chkGestIncidencias.isSelected()){
+                baseDatos="mysql";
                 //Conectamos a MYSQL
                 resultadoConexion=modelo.conectarBD("mysql");
 
@@ -127,6 +131,7 @@ public class ControllerLogin {
             }
             if (!error){
                 //Cerramos la pantalla de login
+                modelo.desconectarBD(baseDatos);
                 Stage stage = (Stage) btnLogin.getScene().getWindow();
                 stage.close();
             }
