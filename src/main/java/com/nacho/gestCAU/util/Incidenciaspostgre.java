@@ -3,27 +3,28 @@ package com.nacho.gestCAU.util;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableArray;
 
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class Incidenciaspostgre  {
     public SimpleStringProperty codIncidencia;
     public SimpleStringProperty descripcion;
-    public SimpleStringProperty fechaCreacion;
+    public Date fechaCreacion;
     public SimpleStringProperty indBorrado;
     public SimpleStringProperty indTraspaso;
-    public SimpleStringProperty codUsuario;
+    public SimpleStringProperty login;
 
-    public Incidenciaspostgre(SimpleStringProperty codIncidencia, SimpleStringProperty descripcion, SimpleStringProperty fechaCreacion, SimpleStringProperty indBorrado, SimpleStringProperty indTraspaso, SimpleStringProperty codUsuario) {
+    public Incidenciaspostgre(SimpleStringProperty codIncidencia, SimpleStringProperty descripcion, Date fechaCreacion, SimpleStringProperty indBorrado, SimpleStringProperty indTraspaso, SimpleStringProperty codUsuario) {
         this.codIncidencia = codIncidencia;
         this.descripcion = descripcion;
         this.fechaCreacion = fechaCreacion;
         this.indBorrado = indBorrado;
         this.indTraspaso = indTraspaso;
-        this.codUsuario = codUsuario;
+        this.login = login;
     }
 
     public Incidenciaspostgre() {
-
     }
 
     public String getCodIncidencia() {
@@ -50,16 +51,12 @@ public class Incidenciaspostgre  {
         this.descripcion.set(descripcion);
     }
 
-    public SimpleStringProperty getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public SimpleStringProperty fechaCreacionProperty() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion.set(fechaCreacion);
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public String getIndBorrado() {
@@ -86,15 +83,16 @@ public class Incidenciaspostgre  {
         this.indTraspaso.set(indTraspaso);
     }
 
-    public String getCodUsuario() {
-        return codUsuario.get();
+    public String getLogin() {
+        return login.get();
     }
 
-    public SimpleStringProperty codUsuarioProperty() {
-        return codUsuario;
+    public SimpleStringProperty loginProperty() {
+        return login;
     }
 
-    public void setCodUsuario(String codUsuario) {
-        this.codUsuario.set(codUsuario);
+    public void setLogin(String login) {
+        this.login.set(login);
     }
 }
+

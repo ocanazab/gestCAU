@@ -115,10 +115,12 @@ public class Model {
                     sentenciaInsert.setString(4, apellidos);
                     sentenciaInsert.setString(5, email);
                     sentenciaInsert.executeUpdate();
+
                 }catch (SQLException sqle){
                     error=sqle.getMessage();
                 }
         }
+
         return error;
     }
 
@@ -135,9 +137,11 @@ public class Model {
                     PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre);
                     ResultSet incidencias=obtenerIncidencias.executeQuery();
                     while (incidencias.next()){
-                        incid.setDescripcion(incidencias.getString(0));
-                        incid.setFechaCreacion(incidencias.getString(1));
-                        listado.add(incid);
+                        //incid.setDescripcion(incidencias.getString(1));
+                        //incid.setFechaCreacion(incidencias.getDate(2));
+                        System.out.print(incidencias.getString(1));
+                        System.out.print(incidencias.getDate(2));
+                        //listado.add(incid);
                     }
 
                 }catch(SQLException sqle){
@@ -156,14 +160,13 @@ public class Model {
         switch (baseDatos){
             case "postgre":
                 try{
-                    String sqlPostgre = "insert into incidencias (descripcion,fecha_creacion,ind_borrado,ind_traspaso,codusuario) values (?,?,?,?,?)";
+                    String sqlPostgre = "insert into incidencias (descripcion,fecha_creacion,ind_borrado,ind_traspaso,login) values (?,?,?,?,?)";
                     PreparedStatement sentenciaInsert= conexionPostgre.prepareStatement(sqlPostgre);
                     sentenciaInsert.setString(1, descripcion);
                     sentenciaInsert.setDate(2, Date.valueOf(fechaCreacion));
                     sentenciaInsert.setInt(3, indBorrado);
                     sentenciaInsert.setInt(4, indTraspaso);
-                    //Para probar. Revisar lo del codigo del usuario
-                    sentenciaInsert.setInt(5, 1);
+                    sentenciaInsert.setString(5, usuario);
                     sentenciaInsert.executeUpdate();
                 }catch(SQLException sqle){
                     error = sqle.getMessage();
@@ -183,7 +186,7 @@ public class Model {
                     conexionPostgre.close();
                     conexionPostgre=null;
                 } catch (SQLException throwables) {
-
+                    System.out.println(throwables.getMessage());
                 }
                 break;
             case "mysql":
