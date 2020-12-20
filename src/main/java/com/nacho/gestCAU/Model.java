@@ -2,6 +2,8 @@ package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -130,6 +132,7 @@ public class Model {
 
         //List<Incidenciaspostgre> listado = null;
         ArrayList<Incidenciaspostgre> lista = new ArrayList<>();
+        ObservableList<Incidenciaspostgre> data = FXCollections.observableArrayList();
 
         switch (baseDatos){
             case "postgre":
@@ -156,6 +159,40 @@ public class Model {
             case "mysql":
         }
         return lista;
+
+    }
+
+    public ObservableList<Incidenciaspostgre> listaIncidencias2(String usuario, String baseDatos) {
+        //Muestra las incidencias del usuario conectado.
+
+
+        ObservableList<Incidenciaspostgre> data = FXCollections.observableArrayList();
+
+        switch (baseDatos){
+            case "postgre":
+                try{
+                    String sqlPostgre="select descripcion, fecha_creacion from incidencias";
+                    PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+                    ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
+
+
+                    Incidenciaspostgre incid = new Incidenciaspostgre();
+
+                    while (rsIncidencias.next()){
+                        incid.setDescripcion(rsIncidencias.getString("descripcion"));
+                        incid.setFechaCreacion(rsIncidencias.getDate("fecha_creacion"));
+
+                        data.add(incid);
+
+                    }
+
+                }catch(SQLException sqle){
+                    Mensajeria.mostrarError("Listado de incidencias usuario","Error al obtener las incidencias: " + "\n" + sqle.getMessage());
+                }
+                break;
+            case "mysql":
+        }
+        return data;
 
     }
 

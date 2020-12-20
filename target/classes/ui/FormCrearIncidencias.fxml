@@ -17,10 +17,10 @@
             <Font name="MathJax_Typewriter-Regular" size="36.0" />
          </font>
       </Label>
-      <TableView layoutX="37.0" layoutY="106.0" prefHeight="227.0" prefWidth="586.0">
+      <TableView fx:id="tblIncidencias" layoutX="37.0" layoutY="106.0" prefHeight="227.0" prefWidth="586.0">
          <columns>
-            <TableColumn editable="false" prefWidth="154.0" text="Fecha" />
-            <TableColumn editable="false" prefWidth="431.0" text="Descripción" />
+            <TableColumn fx:id="colFecha" editable="false" prefWidth="154.0" text="Fecha" />
+            <TableColumn fx:id="colDescripcion" editable="false" prefWidth="431.0" text="Descripción" />
          </columns>
       </TableView>
       <Label layoutX="37.0" layoutY="353.0" text="Fecha:">

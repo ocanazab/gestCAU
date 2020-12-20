@@ -2,13 +2,19 @@ package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class ControllerCreacion {
@@ -18,6 +24,15 @@ public class ControllerCreacion {
 
     @FXML
     private TextArea txtDescripcion;
+
+    @FXML
+    private TableView tblIncidencias;
+
+    @FXML
+    private TableColumn colDescripcion;
+
+    @FXML
+    private TableColumn colFecha;
 
     private String usu;
     private String bd;
@@ -71,15 +86,27 @@ public class ControllerCreacion {
     private void modifIncidencia(){
         ArrayList<Incidenciaspostgre> lista = new ArrayList<>();
 
+        ObservableList<Incidenciaspostgre> data = FXCollections.observableArrayList();
+
         Model modelo = new Model();
         modelo.conectarBD(bd);
 
         lista = modelo.listaIncidencias(usu,bd);
+        data = modelo.listaIncidencias2(usu,bd);
 
         //Recorro la lista a modo de pruebas
         for (int i = 0; i < lista.size(); i++) {
             System.out.println("Fecha: " + lista.get(i).getFechaCreacion() + "\n" + "Descripcion: "+ lista.get(i).getDescripcion());
         }
+
+        //Recorro los datos a modo de pruebas
+        for (int i = 0; i < data.size(); i++) {
+            colFecha.setCellValueFactory(new PropertyValueFactory("fecha_creacion"));
+            colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        }
+        tblIncidencias.setItems(null);
+        tblIncidencias.setItems(data);
+
     }
 
     @FXML
