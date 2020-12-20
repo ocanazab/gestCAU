@@ -7,6 +7,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -68,7 +69,7 @@ public class ControllerCreacion {
 
     @FXML
     private void modifIncidencia(){
-        List<Incidenciaspostgre> lista;
+        ArrayList<Incidenciaspostgre> lista = new ArrayList<>();
 
         Model modelo = new Model();
         modelo.conectarBD(bd);
@@ -77,7 +78,7 @@ public class ControllerCreacion {
 
         //Recorro la lista a modo de pruebas
         for (int i = 0; i < lista.size(); i++) {
-            System.out.println(lista.get(i));
+            System.out.println("Fecha: " + lista.get(i).getFechaCreacion() + "\n" + "Descripcion: "+ lista.get(i).getDescripcion());
         }
     }
 

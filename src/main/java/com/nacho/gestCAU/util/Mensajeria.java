@@ -8,12 +8,12 @@ public class Mensajeria {
         Alert alerta = new Alert(Alert.AlertType.ERROR);
         alerta.setTitle(titulo);
         alerta.setContentText(mensaje);
-        alerta.show();
+        alerta.showAndWait();
     }
     public static void mostrarInfo(String titulo, String mensaje){
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle(titulo);
         alerta.setContentText(mensaje);
-        alerta.show();
+        alerta.showAndWait();
     }
 }

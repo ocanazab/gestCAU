@@ -7,48 +7,31 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class Incidenciaspostgre  {
-    public SimpleStringProperty codIncidencia;
-    public SimpleStringProperty descripcion;
+public class Incidenciaspostgre {
+    public int codIncidencia;
+    public String descripcion;
     public Date fechaCreacion;
-    public SimpleStringProperty indBorrado;
-    public SimpleStringProperty indTraspaso;
-    public SimpleStringProperty login;
-
-    public Incidenciaspostgre(SimpleStringProperty codIncidencia, SimpleStringProperty descripcion, Date fechaCreacion, SimpleStringProperty indBorrado, SimpleStringProperty indTraspaso, SimpleStringProperty codUsuario) {
-        this.codIncidencia = codIncidencia;
-        this.descripcion = descripcion;
-        this.fechaCreacion = fechaCreacion;
-        this.indBorrado = indBorrado;
-        this.indTraspaso = indTraspaso;
-        this.login = login;
-    }
+    public int indBorrado;
+    public int indTraspaso;
+    public String login;
 
     public Incidenciaspostgre() {
     }
 
-    public String getCodIncidencia() {
-        return codIncidencia.get();
-    }
-
-    public SimpleStringProperty codIncidenciaProperty() {
+    public int getCodIncidencia() {
         return codIncidencia;
     }
 
-    public void setCodIncidencia(String codIncidencia) {
-        this.codIncidencia.set(codIncidencia);
+    public void setCodIncidencia(int codIncidencia) {
+        this.codIncidencia = codIncidencia;
     }
 
     public String getDescripcion() {
-        return descripcion.get();
-    }
-
-    public SimpleStringProperty descripcionProperty() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion.set(descripcion);
+        this.descripcion = descripcion;
     }
 
     public Date getFechaCreacion() {
@@ -59,40 +42,29 @@ public class Incidenciaspostgre  {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public String getIndBorrado() {
-        return indBorrado.get();
-    }
-
-    public SimpleStringProperty indBorradoProperty() {
+    public int getIndBorrado() {
         return indBorrado;
     }
 
-    public void setIndBorrado(String indBorrado) {
-        this.indBorrado.set(indBorrado);
+    public void setIndBorrado(int indBorrado) {
+        this.indBorrado = indBorrado;
     }
 
-    public String getIndTraspaso() {
-        return indTraspaso.get();
-    }
-
-    public SimpleStringProperty indTraspasoProperty() {
+    public int getIndTraspaso() {
         return indTraspaso;
     }
 
-    public void setIndTraspaso(String indTraspaso) {
-        this.indTraspaso.set(indTraspaso);
+    public void setIndTraspaso(int indTraspaso) {
+        this.indTraspaso = indTraspaso;
     }
 
     public String getLogin() {
-        return login.get();
-    }
-
-    public SimpleStringProperty loginProperty() {
         return login;
     }
 
     public void setLogin(String login) {
-        this.login.set(login);
+        this.login = login;
     }
 }
+
 

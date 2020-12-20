@@ -5,9 +5,10 @@ import com.nacho.gestCAU.util.Mensajeria;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 
-import java.util.List;
+import java.util.*;
 
 public class Model {
 
@@ -124,24 +125,28 @@ public class Model {
         return error;
     }
 
-    public List<Incidenciaspostgre> listaIncidencias(String usuario, String baseDatos) {
+    public ArrayList<Incidenciaspostgre> listaIncidencias(String usuario, String baseDatos) {
         //Muestra las incidencias del usuario conectado.
 
-        List<Incidenciaspostgre> listado = null;
-        Incidenciaspostgre incid = new Incidenciaspostgre();
+        //List<Incidenciaspostgre> listado = null;
+        ArrayList<Incidenciaspostgre> lista = new ArrayList<>();
 
         switch (baseDatos){
             case "postgre":
                 try{
                     String sqlPostgre="select descripcion, fecha_creacion from incidencias";
-                    PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre);
-                    ResultSet incidencias=obtenerIncidencias.executeQuery();
-                    while (incidencias.next()){
-                        //incid.setDescripcion(incidencias.getString(1));
-                        //incid.setFechaCreacion(incidencias.getDate(2));
-                        System.out.print(incidencias.getString(1));
-                        System.out.print(incidencias.getDate(2));
-                        //listado.add(incid);
+                    PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+                    ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
+
+
+                    Incidenciaspostgre incid = new Incidenciaspostgre();
+
+                    while (rsIncidencias.next()){
+                        incid.setDescripcion(rsIncidencias.getString(1));
+                        incid.setFechaCreacion(rsIncidencias.getDate(2));
+
+                        lista.add(incid);
+
                     }
 
                 }catch(SQLException sqle){
@@ -150,7 +155,7 @@ public class Model {
                 break;
             case "mysql":
         }
-        return listado;
+        return lista;
 
     }
 
