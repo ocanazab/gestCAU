@@ -3,15 +3,10 @@ package com.nacho.gestCAU;
 import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
@@ -76,6 +71,12 @@ public class ControllerCreacion {
         fechaIncidencia.setEditable(false);
         fechaIncidencia.setValue(LocalDate.now());
 
+        //Preparo el TableView
+        TableView.TableViewSelectionModel<Incidenciaspostgre> selectionModel = tblIncidencias.getSelectionModel();
+        selectionModel.setSelectionMode(SelectionMode.SINGLE);
+        colDescripcion.setSortable(false);
+        colFecha.setSortable(false);
+
         String resultado="";
 
         //Actualizo el TableView
@@ -122,6 +123,12 @@ public class ControllerCreacion {
 
     @FXML
     private void modifIncidencia(){
+
+        ObservableList<Incidenciaspostgre> filaseleccionada = FXCollections.observableArrayList();
+        filaseleccionada=tblIncidencias.getSelectionModel().getSelectedItems();
+
+
+        txtDescripcion.setText(filaseleccionada.get(0).getDescripcion());
 
 
 
