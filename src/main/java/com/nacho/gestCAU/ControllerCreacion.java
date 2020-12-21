@@ -124,19 +124,47 @@ public class ControllerCreacion {
     @FXML
     private void modifIncidencia(){
 
-        ObservableList<Incidenciaspostgre> filaseleccionada = FXCollections.observableArrayList();
-        filaseleccionada=tblIncidencias.getSelectionModel().getSelectedItems();
-
-
-        txtDescripcion.setText(filaseleccionada.get(0).getDescripcion());
-
 
 
     }
 
     @FXML
-    private void removeIncidencia(){
+    private void rellenarDatos(){
+        ObservableList<Incidenciaspostgre> filaseleccionada = FXCollections.observableArrayList();
+        filaseleccionada=tblIncidencias.getSelectionModel().getSelectedItems();
 
+
+        txtDescripcion.setText(filaseleccionada.get(0).getDescripcion());
+        fechaIncidencia.setValue(filaseleccionada.get(0).getFechaCreacion().toLocalDate());
+    }
+
+    @FXML
+    private void removeIncidencia(){
+        String resultado="";
+        ObservableList<Incidenciaspostgre> filaseleccionada = FXCollections.observableArrayList();
+
+        //Obtengo la fila seleccionada.
+        filaseleccionada=tblIncidencias.getSelectionModel().getSelectedItems();
+
+        //Conectamos a la Base de datos
+        Model modelo = new Model();
+        resultado=modelo.conectarBD(bd);
+
+        if (resultado.isEmpty()){
+            resultado=modelo.borrarIncidencia(txtDescripcion.getText(),fechaIncidencia.getValue(),usu,bd);
+            if (resultado.isEmpty()){
+                //Si no hay error, muestro el mensaje y refresco la tabla.
+                Mensajeria.mostrarInfo("Eliminar incidencia","Incidencia borrada con éxito.");
+                fechaIncidencia.setValue(LocalDate.now());
+                txtDescripcion.setText("");
+                refrescaTabla();
+            }else{
+                Mensajeria.mostrarError("Borrar Incidencia","Error al borrar la incidencia."+"\n"+resultado);
+            }
+        }else{
+            Mensajeria.mostrarError("Borrar Incidencia","Error al conectar a la base de datos."+"\n"+resultado);
+        }
+        modelo.desconectarBD(bd);
     }
 
 

@@ -137,7 +137,6 @@ public class Model {
             case "postgre":
                 try{
                     String sqlPostgre="select descripcion, fecha_creacion from incidencias where login='" + usuario + "' and ind_borrado=0";
-                    System.out.println(sqlPostgre);
                     PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
                     ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
 
@@ -161,7 +160,7 @@ public class Model {
 
     public String crearIncidencia(String descripcion, LocalDate fechaCreacion, int indBorrado, int indTraspaso, String usuario, String baseDatos){
         String error="";
-        //Mensajeria.mostrarInfo("Insertar incidencia",descripcion+fechaCreacion+indBorrado+indTraspaso+usuario+baseDatos);
+
         switch (baseDatos){
             case "postgre":
                 try{
@@ -173,6 +172,31 @@ public class Model {
                     sentenciaInsert.setInt(4, indTraspaso);
                     sentenciaInsert.setString(5, usuario);
                     sentenciaInsert.executeUpdate();
+                }catch(SQLException sqle){
+                    error = sqle.getMessage();
+                    break;
+                }
+                break;
+            case "mysql":
+        }
+        return error;
+    }
+
+    public String borrarIncidencia(String descripcion, LocalDate fechaCreacion, String usuario, String baseDatos){
+
+        //Se trata de un borrado lógico.
+        //En un desarrollo posterior se podrán recuperar los registros borrados.
+
+        String error="";
+        switch (baseDatos){
+            case "postgre":
+                try{
+                    String sqlPostgre="update incidencias set ind_borrado=1, ind_traspaso=0 where descripcion=? and fecha_creacion=? and login=?";
+                    PreparedStatement sentenciaDelete= conexionPostgre.prepareStatement(sqlPostgre);
+                    sentenciaDelete.setString(1, descripcion);
+                    sentenciaDelete.setDate(2, Date.valueOf(fechaCreacion));
+                    sentenciaDelete.setString(3, usuario);
+                    sentenciaDelete.executeUpdate();
                 }catch(SQLException sqle){
                     error = sqle.getMessage();
                     break;

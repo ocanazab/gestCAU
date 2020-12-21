@@ -1,11 +1,7 @@
 package com.nacho.gestCAU.util;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableArray;
-
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 public class Incidenciaspostgre {
     public int codIncidencia;
