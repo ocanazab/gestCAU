@@ -2,6 +2,7 @@ package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -42,7 +43,9 @@ public class ControllerCreacion {
         bd=baseDatos;
     }
 
-    private void refrescaTabla(){
+    private String refrescaTabla(){
+        String resultado="";
+
         //Muestro las incidencias
         ObservableList<Incidenciaspostgre> lista = FXCollections.observableArrayList();
 
@@ -50,15 +53,21 @@ public class ControllerCreacion {
         modelo.conectarBD(bd);
 
         lista = modelo.listaIncidencias(usu,bd);
-        //Recorro los datos a modo de pruebas
-        for (int i = 0; i < lista.size(); i++) {
-            colFecha.setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
-            colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
-        }
-        tblIncidencias.setItems(null);
-        tblIncidencias.setItems(lista);
 
+        if(lista!=null){
+            //Relleno el TableView
+            for (int i = 0; i < lista.size(); i++) {
+                colFecha.setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
+                colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+            }
+            tblIncidencias.setItems(null);
+            tblIncidencias.setItems(lista);
+
+        }else{
+            resultado="Error";
+        }
         modelo.desconectarBD(bd);
+        return resultado;
     }
 
     @FXML
@@ -67,8 +76,14 @@ public class ControllerCreacion {
         fechaIncidencia.setEditable(false);
         fechaIncidencia.setValue(LocalDate.now());
 
+        String resultado="";
+
         //Actualizo el TableView
-        refrescaTabla();
+        resultado=refrescaTabla();
+
+        if(resultado.equals("Error")){
+            Platform.exit();
+        }
 
     }
 

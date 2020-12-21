@@ -136,7 +136,8 @@ public class Model {
         switch (baseDatos){
             case "postgre":
                 try{
-                    String sqlPostgre="select descripcion, fecha_creacion from incidencias where login=" + usuario + " and ind_borrado=0";
+                    String sqlPostgre="select descripcion, fecha_creacion from incidencias where login='" + usuario + "' and ind_borrado=0";
+                    System.out.println(sqlPostgre);
                     PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
                     ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
 
@@ -149,6 +150,7 @@ public class Model {
 
                 }catch(SQLException sqle){
                     Mensajeria.mostrarError("Listado de incidencias usuario","Error al obtener las incidencias: " + "\n" + sqle.getMessage());
+                    data=null;
                 }
                 break;
             case "mysql":
