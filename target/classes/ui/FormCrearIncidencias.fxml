@@ -29,7 +29,7 @@
          </font>
       </Label>
       <DatePicker fx:id="fechaIncidencia" layoutX="154.0" layoutY="350.0" showWeekNumbers="true" />
-      <CheckBox fx:id="chkEncurso" layoutX="377.0" layoutY="350.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="162.0" text="En curso">
+      <CheckBox fx:id="chkEncurso" disable="true" layoutX="377.0" layoutY="350.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="162.0" text="En curso">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>

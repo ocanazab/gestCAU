@@ -42,12 +42,34 @@ public class ControllerCreacion {
         bd=baseDatos;
     }
 
+    private void refrescaTabla(){
+        //Muestro las incidencias
+        ObservableList<Incidenciaspostgre> lista = FXCollections.observableArrayList();
+
+        Model modelo = new Model();
+        modelo.conectarBD(bd);
+
+        lista = modelo.listaIncidencias(usu,bd);
+        //Recorro los datos a modo de pruebas
+        for (int i = 0; i < lista.size(); i++) {
+            colFecha.setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
+            colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        }
+        tblIncidencias.setItems(null);
+        tblIncidencias.setItems(lista);
+
+        modelo.desconectarBD(bd);
+    }
+
     @FXML
     private void initialize() {
-        //Obtengo los datos de las incidencias del usuario conectado.
-        //Los muestro en el TableView
+        //Inicializo el DatePicker
         fechaIncidencia.setEditable(false);
         fechaIncidencia.setValue(LocalDate.now());
+
+        //Actualizo el TableView
+        refrescaTabla();
+
     }
 
     @FXML
@@ -74,9 +96,10 @@ public class ControllerCreacion {
             }else{
                 Mensajeria.mostrarInfo("Nueva Incidencia","Incidencia creada correctamente");
                 txtDescripcion.setText("");
+                modelo.desconectarBD(bd);
             }
             //Aquí refrescaré el TableView para mostrar el nuevo registro.
-
+            refrescaTabla();
         }else{
             Mensajeria.mostrarError("Validación","Debes de rellenar una descripción.");
         }
@@ -84,28 +107,8 @@ public class ControllerCreacion {
 
     @FXML
     private void modifIncidencia(){
-        ArrayList<Incidenciaspostgre> lista = new ArrayList<>();
 
-        ObservableList<Incidenciaspostgre> data = FXCollections.observableArrayList();
 
-        Model modelo = new Model();
-        modelo.conectarBD(bd);
-
-        lista = modelo.listaIncidencias(usu,bd);
-        data = modelo.listaIncidencias2(usu,bd);
-
-        //Recorro la lista a modo de pruebas
-        for (int i = 0; i < lista.size(); i++) {
-            System.out.println("Fecha: " + lista.get(i).getFechaCreacion() + "\n" + "Descripcion: "+ lista.get(i).getDescripcion());
-        }
-
-        //Recorro los datos a modo de pruebas
-        for (int i = 0; i < data.size(); i++) {
-            colFecha.setCellValueFactory(new PropertyValueFactory("fecha_creacion"));
-            colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
-        }
-        tblIncidencias.setItems(null);
-        tblIncidencias.setItems(data);
 
     }
 
@@ -113,5 +116,7 @@ public class ControllerCreacion {
     private void removeIncidencia(){
 
     }
+
+
 
 }

@@ -127,42 +127,7 @@ public class Model {
         return error;
     }
 
-    public ArrayList<Incidenciaspostgre> listaIncidencias(String usuario, String baseDatos) {
-        //Muestra las incidencias del usuario conectado.
-
-        //List<Incidenciaspostgre> listado = null;
-        ArrayList<Incidenciaspostgre> lista = new ArrayList<>();
-        ObservableList<Incidenciaspostgre> data = FXCollections.observableArrayList();
-
-        switch (baseDatos){
-            case "postgre":
-                try{
-                    String sqlPostgre="select descripcion, fecha_creacion from incidencias";
-                    PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-                    ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
-
-
-                    Incidenciaspostgre incid = new Incidenciaspostgre();
-
-                    while (rsIncidencias.next()){
-                        incid.setDescripcion(rsIncidencias.getString(1));
-                        incid.setFechaCreacion(rsIncidencias.getDate(2));
-
-                        lista.add(incid);
-
-                    }
-
-                }catch(SQLException sqle){
-                    Mensajeria.mostrarError("Listado de incidencias usuario","Error al obtener las incidencias: " + "\n" + sqle.getMessage());
-                }
-                break;
-            case "mysql":
-        }
-        return lista;
-
-    }
-
-    public ObservableList<Incidenciaspostgre> listaIncidencias2(String usuario, String baseDatos) {
+    public ObservableList<Incidenciaspostgre> listaIncidencias(String usuario, String baseDatos) {
         //Muestra las incidencias del usuario conectado.
 
 
@@ -171,19 +136,15 @@ public class Model {
         switch (baseDatos){
             case "postgre":
                 try{
-                    String sqlPostgre="select descripcion, fecha_creacion from incidencias";
+                    String sqlPostgre="select descripcion, fecha_creacion from incidencias where login=" + usuario + " and ind_borrado=0";
                     PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
                     ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
 
-
-                    Incidenciaspostgre incid = new Incidenciaspostgre();
-
                     while (rsIncidencias.next()){
+                        Incidenciaspostgre incid = new Incidenciaspostgre();
                         incid.setDescripcion(rsIncidencias.getString("descripcion"));
                         incid.setFechaCreacion(rsIncidencias.getDate("fecha_creacion"));
-
                         data.add(incid);
-
                     }
 
                 }catch(SQLException sqle){
