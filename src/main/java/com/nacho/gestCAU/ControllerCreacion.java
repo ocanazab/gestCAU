@@ -123,8 +123,27 @@ public class ControllerCreacion {
 
     @FXML
     private void modifIncidencia(){
+        String resultado="";
 
+        //Conectamos a la Base de datos
+        Model modelo = new Model();
+        resultado=modelo.conectarBD(bd);
 
+        if (resultado.isEmpty()){
+            resultado=modelo.updateIncidencia(txtDescripcion.getText(),fechaIncidencia.getValue(),usu,bd);
+            if (resultado.isEmpty()){
+                //Si no hay error, muestro el mensaje y refresco la tabla.
+                Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");
+                fechaIncidencia.setValue(LocalDate.now());
+                txtDescripcion.setText("");
+                refrescaTabla();
+            }else{
+                Mensajeria.mostrarError("Actualizar Incidencia","Error al actualizar la incidencia."+"\n"+resultado);
+            }
+        }else{
+            Mensajeria.mostrarError("Actualizar Incidencia","Error al conectar a la base de datos."+"\n"+resultado);
+        }
+        modelo.desconectarBD(bd);
 
     }
 

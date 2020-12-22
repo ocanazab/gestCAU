@@ -247,6 +247,31 @@ public class Model {
         return error;
     }
 
+    public String updateIncidencia(String descripcion, LocalDate fechaCreacion, String usuario, String baseDatos){
+
+        //Para modificar una incidencia seleccionada
+
+        String error="";
+        switch (baseDatos){
+            case "postgre":
+                try{
+                    String sqlPostgre="update incidencias set descripcion=?, fecha_creacion=?"+ " where descripcion=" + descripcion+ " and fecha_creacion=" + fechaCreacion.toString() + " and login=?";
+                    Mensajeria.mostrarInfo("Actualizacion",sqlPostgre);
+                    PreparedStatement sentenciaUpdate= conexionPostgre.prepareStatement(sqlPostgre);
+                    sentenciaUpdate.setString(1, descripcion);
+                    sentenciaUpdate.setDate(2, Date.valueOf(fechaCreacion));
+                    sentenciaUpdate.setString(3, usuario);
+                    sentenciaUpdate.executeUpdate();
+                }catch(SQLException sqle){
+                    error = sqle.getMessage();
+                    break;
+                }
+                break;
+            case "mysql":
+        }
+        return error;
+    }
+
     public void desconectarBD(String baseDatos){
 
         switch(baseDatos){
