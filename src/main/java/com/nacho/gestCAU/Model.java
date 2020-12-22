@@ -35,7 +35,8 @@ public class Model {
 
             Properties config = new Properties();
 
-            config.load(new FileInputStream("src/main/resources/files/settings.properties"));
+            //config.load(new FileInputStream("src/main/resources/files/settings.properties"));
+            config.load(R.getconfig("settings.properties"));
 
             switch (baseDatos){
                 case "postgre":

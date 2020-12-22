@@ -48,20 +48,6 @@ public class Configuracion {
         return url;
     }
 
-    /*
-    //Obtengo los datos de conexión del fichero de propiedades
-    Properties configuracion = new Properties();
-        try {
-        configuracion.load(new FileInputStream("configuracion.props"));
-        usuario = configuracion.getProperty("user");
-        password = configuracion.getProperty("password");
-        servidor = configuracion.getProperty("server");
-        puerto = Integer.valueOf(configuration.getProperty("port"));
-    } catch (FileNotFoundException fnfe ) {
-        fnfe.printStackTrace();
-    } catch (IOException ioe) {
-        ioe.printStackTrace();
-    }*/
 
     public Configuracion(String baseDat, String fichero) {
         this.baseDat = baseDat;
