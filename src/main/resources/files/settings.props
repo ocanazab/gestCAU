@@ -1,0 +1,16 @@
+# Fichero de configuración para el acceso a las bases de datos
+
+#Acceso Postgre
+driverPosgre="org.postgresql.Driver"
+urlConexionPosgre="jdbc:postgresql://localhost:5432/"
+databasePosgre="gestIncidencias"
+userPosgre="postgres"
+passPosgre="nacho;pili;tq"
+
+#Acceso MySQL
+driverMysql="org.postgresql.Driver"
+urlConexionMysql="jdbc:postgresql://localhost:5432/"
+databaseMysql="gestIncidencias"
+userMysql="postgres"
+passMysql="nacho;pili;tq"
+
