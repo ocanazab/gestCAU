@@ -5,6 +5,9 @@ import com.nacho.gestCAU.util.Mensajeria;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.sql.Date;
@@ -21,13 +24,42 @@ public class Model {
     public String conectarBD(String baseDatos){
         String fallo="";
 
+        //Obtengo los datos de conexión del fichero props
+        String usuario="";
+        String password="";
+        String driver="";
+        String url="";
+
+        Properties config = new Properties();
+        try {
+            config.load(new FileInputStream("settings.props"));
+
+            switch (baseDatos){
+                case "postgre":
+                    usuario = config.getProperty("userPosgre");
+                    password = config.getProperty("passPosgre");
+                    driver=config.getProperty("driverPosgre");
+                    url=config.getProperty("urlConexionPosgre");
+                    break;
+                case "mysql":
+                    usuario = config.getProperty("userMysql");
+                    password = config.getProperty("passMysql");
+                    driver=config.getProperty("driverMysql");
+                    url=config.getProperty("urlConexionMysql");
+            }
+        } catch (IOException ioe) {
+            fallo=ioe.getMessage();
+        }
+
+
         switch (baseDatos){
             case "postgre":
                 try{
-
-                    Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
+                    Class.forName(driver).getDeclaredConstructor().newInstance();
+                    conexionPostgre= DriverManager.getConnection(url,usuario, password);
+                    /*Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
                     conexionPostgre= DriverManager.getConnection("jdbc:postgresql://localhost:5432/gestIncidencias",
-                            "postgres", "nacho;pili;tq");
+                            "postgres", "nacho;pili;tq");*/
                 }catch (ClassNotFoundException e){
                     fallo=e.getMessage();
                 } catch (SQLException throwables) {
@@ -43,9 +75,11 @@ public class Model {
                 }
             case "mysql":
                 try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Class.forName(driver);
+                    conexionMYSQL = DriverManager.getConnection(url, usuario, password);
+                    /*Class.forName(driver);
                     conexionMYSQL = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestCAU?serverTimezone=UTC",
-                            "nacho", "nachoCAU");
+                            "nacho", "nachoCAU");*/
                 } catch (ClassNotFoundException e) {
                     fallo=e.getMessage();
                 } catch (SQLException e) {
