@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class ControllerCreacion {
 
@@ -173,29 +174,37 @@ public class ControllerCreacion {
     private void removeIncidencia(){
         String resultado="";
         ObservableList<Incidenciaspostgre> filaseleccionada = FXCollections.observableArrayList();
+        Optional<ButtonType> accion;
 
         //Obtengo la fila seleccionada.
         filaseleccionada=tblIncidencias.getSelectionModel().getSelectedItems();
 
-        //Conectamos a la Base de datos
-        Model modelo = new Model();
-        resultado=modelo.conectarBD(bd);
+        //Pido confirmación antes del borrado
+        accion = Mensajeria.confirmacion("Confirmación","¿Está seguro de que desea borrar la incidencia seleccionada?");
 
-        if (resultado.isEmpty()){
-            resultado=modelo.borrarIncidencia(txtDescripcion.getText(),fechaIncidencia.getValue(),usu,bd);
+        if (accion.get()==ButtonType.OK){
+            //Conectamos a la Base de datos
+            Model modelo = new Model();
+            resultado=modelo.conectarBD(bd);
+
             if (resultado.isEmpty()){
-                //Si no hay error, muestro el mensaje y refresco la tabla.
-                Mensajeria.mostrarInfo("Eliminar incidencia","Incidencia borrada con éxito.");
-                fechaIncidencia.setValue(LocalDate.now());
-                txtDescripcion.setText("");
-                refrescaTabla();
+                resultado=modelo.borrarIncidencia(txtDescripcion.getText(),fechaIncidencia.getValue(),usu,bd);
+                if (resultado.isEmpty()){
+                    //Si no hay error, muestro el mensaje y refresco la tabla.
+                    Mensajeria.mostrarInfo("Eliminar incidencia","Incidencia borrada con éxito.");
+                    fechaIncidencia.setValue(LocalDate.now());
+                    txtDescripcion.setText("");
+                    refrescaTabla();
+                }else{
+                    Mensajeria.mostrarError("Borrar Incidencia","Error al borrar la incidencia."+"\n"+resultado);
+                }
             }else{
-                Mensajeria.mostrarError("Borrar Incidencia","Error al borrar la incidencia."+"\n"+resultado);
+                Mensajeria.mostrarError("Borrar Incidencia","Error al conectar a la base de datos."+"\n"+resultado);
             }
-        }else{
-            Mensajeria.mostrarError("Borrar Incidencia","Error al conectar a la base de datos."+"\n"+resultado);
+            modelo.desconectarBD(bd);
         }
-        modelo.desconectarBD(bd);
+
+
     }
 
 

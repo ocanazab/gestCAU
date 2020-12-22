@@ -257,7 +257,6 @@ public class Model {
             case "postgre":
                 try{
                     String sqlPostgre="update incidencias set descripcion=?, fecha_creacion=? where login= ? and codincidencia=?";
-                    Mensajeria.mostrarInfo("Actualizacion",sqlPostgre);
                     PreparedStatement sentenciaUpdate= conexionPostgre.prepareStatement(sqlPostgre);
                     sentenciaUpdate.setString(1, descripcion);
                     sentenciaUpdate.setDate(2, Date.valueOf(fechaCreacion));

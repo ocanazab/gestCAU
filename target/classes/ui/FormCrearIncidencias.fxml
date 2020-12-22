@@ -19,6 +19,7 @@
       </Label>
       <TableView fx:id="tblIncidencias" layoutX="37.0" layoutY="106.0" onMouseClicked="#rellenarDatos" prefHeight="227.0" prefWidth="586.0">
          <columns>
+            <TableColumn fx:id="colNumero" editable="false" prefWidth="75.0" sortable="false" text="Número" />
             <TableColumn fx:id="colFecha" editable="false" prefWidth="154.0" text="Fecha" />
             <TableColumn fx:id="colDescripcion" editable="false" prefWidth="431.0" text="Descripción" />
          </columns>
