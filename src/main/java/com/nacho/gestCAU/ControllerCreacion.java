@@ -10,8 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
-import java.util.*;
-
 
 public class ControllerCreacion {
 
@@ -30,8 +28,12 @@ public class ControllerCreacion {
     @FXML
     private TableColumn colFecha;
 
+    @FXML
+    private TableColumn colNumero;
+
     private String usu;
     private String bd;
+    private int numeroinci;
 
     public void setData(String usuario, String baseDatos){
         usu=usuario;
@@ -54,6 +56,7 @@ public class ControllerCreacion {
             for (int i = 0; i < lista.size(); i++) {
                 colFecha.setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
                 colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+                colNumero.setCellValueFactory(new PropertyValueFactory("codIncidencia"));
             }
             tblIncidencias.setItems(null);
             tblIncidencias.setItems(lista);
@@ -63,6 +66,17 @@ public class ControllerCreacion {
         }
         modelo.desconectarBD(bd);
         return resultado;
+    }
+
+    @FXML
+    private void rellenarDatos(){
+        ObservableList<Incidenciaspostgre> filaseleccionada = FXCollections.observableArrayList();
+        filaseleccionada=tblIncidencias.getSelectionModel().getSelectedItems();
+
+
+        txtDescripcion.setText(filaseleccionada.get(0).getDescripcion());
+        fechaIncidencia.setValue(filaseleccionada.get(0).getFechaCreacion().toLocalDate());
+        numeroinci=filaseleccionada.get(0).getCodIncidencia();
     }
 
     @FXML
@@ -125,37 +139,35 @@ public class ControllerCreacion {
     private void modifIncidencia(){
         String resultado="";
 
-        //Conectamos a la Base de datos
-        Model modelo = new Model();
-        resultado=modelo.conectarBD(bd);
 
-        if (resultado.isEmpty()){
-            resultado=modelo.updateIncidencia(txtDescripcion.getText(),fechaIncidencia.getValue(),usu,bd);
-            if (resultado.isEmpty()){
-                //Si no hay error, muestro el mensaje y refresco la tabla.
-                Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");
-                fechaIncidencia.setValue(LocalDate.now());
-                txtDescripcion.setText("");
-            }else{
-                Mensajeria.mostrarError("Actualizar Incidencia","Error al actualizar la incidencia."+"\n"+resultado);
-            }
+
+        if (txtDescripcion.getText().isEmpty()){
+            Mensajeria.mostrarError("Faltan datos","La descripción de la incidencia no puede estar vacia");
         }else{
-            Mensajeria.mostrarError("Actualizar Incidencia","Error al conectar a la base de datos."+"\n"+resultado);
+            //Conectamos a la Base de datos
+            Model modelo = new Model();
+            resultado=modelo.conectarBD(bd);
+
+            if (resultado.isEmpty()){
+
+                resultado=modelo.updateIncidencia(txtDescripcion.getText(),fechaIncidencia.getValue(),numeroinci,usu,bd);
+                if (resultado.isEmpty()){
+                    //Si no hay error, muestro el mensaje y refresco la tabla.
+                    Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");
+                    fechaIncidencia.setValue(LocalDate.now());
+                    txtDescripcion.setText("");
+                }else{
+                    Mensajeria.mostrarError("Actualizar Incidencia","Error al actualizar la incidencia."+"\n"+resultado);
+                }
+            }else{
+                Mensajeria.mostrarError("Actualizar Incidencia","Error al conectar a la base de datos."+"\n"+resultado);
+            }
+            refrescaTabla();
+            modelo.desconectarBD(bd);
         }
-        refrescaTabla();
-        modelo.desconectarBD(bd);
-
     }
 
-    @FXML
-    private void rellenarDatos(){
-        ObservableList<Incidenciaspostgre> filaseleccionada = FXCollections.observableArrayList();
-        filaseleccionada=tblIncidencias.getSelectionModel().getSelectedItems();
 
-
-        txtDescripcion.setText(filaseleccionada.get(0).getDescripcion());
-        fechaIncidencia.setValue(filaseleccionada.get(0).getFechaCreacion().toLocalDate());
-    }
 
     @FXML
     private void removeIncidencia(){

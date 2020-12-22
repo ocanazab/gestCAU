@@ -176,7 +176,7 @@ public class Model {
         switch (baseDatos){
             case "postgre":
                 try{
-                    String sqlPostgre="select descripcion, fecha_creacion from incidencias where login='" + usuario + "' and ind_borrado=0";
+                    String sqlPostgre="select descripcion, fecha_creacion,codincidencia from incidencias where login='" + usuario + "' and ind_borrado=0 order by 3";
                     PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
                     ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
 
@@ -184,6 +184,7 @@ public class Model {
                         Incidenciaspostgre incid = new Incidenciaspostgre();
                         incid.setDescripcion(rsIncidencias.getString("descripcion"));
                         incid.setFechaCreacion(rsIncidencias.getDate("fecha_creacion"));
+                        incid.setCodIncidencia(rsIncidencias.getInt("codincidencia"));
                         data.add(incid);
                     }
 
@@ -247,7 +248,7 @@ public class Model {
         return error;
     }
 
-    public String updateIncidencia(String descripcion, LocalDate fechaCreacion, String usuario, String baseDatos){
+    public String updateIncidencia(String descripcion, LocalDate fechaCreacion, int codigoinci, String usuario, String baseDatos){
 
         //Para modificar una incidencia seleccionada
 
@@ -255,12 +256,13 @@ public class Model {
         switch (baseDatos){
             case "postgre":
                 try{
-                    String sqlPostgre="update incidencias set descripcion=?, fecha_creacion=?"+ " where descripcion='" + descripcion+ "' and fecha_creacion=" + fechaCreacion.toString() + " and login=?";
+                    String sqlPostgre="update incidencias set descripcion=?, fecha_creacion=? where login= ? and codincidencia=?";
                     Mensajeria.mostrarInfo("Actualizacion",sqlPostgre);
                     PreparedStatement sentenciaUpdate= conexionPostgre.prepareStatement(sqlPostgre);
                     sentenciaUpdate.setString(1, descripcion);
                     sentenciaUpdate.setDate(2, Date.valueOf(fechaCreacion));
                     sentenciaUpdate.setString(3, usuario);
+                    sentenciaUpdate.setInt(4,codigoinci);
                     sentenciaUpdate.executeUpdate();
                 }catch(SQLException sqle){
                     error = sqle.getMessage();
