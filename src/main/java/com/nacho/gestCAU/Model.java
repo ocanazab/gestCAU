@@ -255,7 +255,7 @@ public class Model {
         switch (baseDatos){
             case "postgre":
                 try{
-                    String sqlPostgre="update incidencias set descripcion=?, fecha_creacion=?"+ " where descripcion=" + descripcion+ " and fecha_creacion=" + fechaCreacion.toString() + " and login=?";
+                    String sqlPostgre="update incidencias set descripcion=?, fecha_creacion=?"+ " where descripcion='" + descripcion+ "' and fecha_creacion=" + fechaCreacion.toString() + " and login=?";
                     Mensajeria.mostrarInfo("Actualizacion",sqlPostgre);
                     PreparedStatement sentenciaUpdate= conexionPostgre.prepareStatement(sqlPostgre);
                     sentenciaUpdate.setString(1, descripcion);

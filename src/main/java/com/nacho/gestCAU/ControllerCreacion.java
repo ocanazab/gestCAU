@@ -136,13 +136,13 @@ public class ControllerCreacion {
                 Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");
                 fechaIncidencia.setValue(LocalDate.now());
                 txtDescripcion.setText("");
-                refrescaTabla();
             }else{
                 Mensajeria.mostrarError("Actualizar Incidencia","Error al actualizar la incidencia."+"\n"+resultado);
             }
         }else{
             Mensajeria.mostrarError("Actualizar Incidencia","Error al conectar a la base de datos."+"\n"+resultado);
         }
+        refrescaTabla();
         modelo.desconectarBD(bd);
 
     }
