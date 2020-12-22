@@ -2,6 +2,7 @@ package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
+import com.nacho.gestCAU.util.R;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -24,31 +25,35 @@ public class Model {
     public String conectarBD(String baseDatos){
         String fallo="";
 
-        //Obtengo los datos de conexión del fichero props
+        //Obtengo los datos de configuración desde fichero.
         String usuario="";
         String password="";
-        String driver="";
         String url="";
+        String driver="";
 
-        Properties config = new Properties();
         try {
-            config.load(new FileInputStream("settings.props"));
+
+            Properties config = new Properties();
+
+            config.load(new FileInputStream("src/main/resources/files/settings.properties"));
 
             switch (baseDatos){
                 case "postgre":
-                    usuario = config.getProperty("userPosgre");
-                    password = config.getProperty("passPosgre");
-                    driver=config.getProperty("driverPosgre");
-                    url=config.getProperty("urlConexionPosgre");
+                    usuario = config.getProperty("userPostgre");
+                    password = config.getProperty("passPostgre");
+                    url=config.getProperty("urlConexionPostgre");
+                    driver=config.getProperty("driverPostgre");
                     break;
                 case "mysql":
                     usuario = config.getProperty("userMysql");
                     password = config.getProperty("passMysql");
-                    driver=config.getProperty("driverMysql");
                     url=config.getProperty("urlConexionMysql");
+                    driver=config.getProperty("driverMysql");
             }
         } catch (IOException ioe) {
             fallo=ioe.getMessage();
+        } catch (NullPointerException np){
+            fallo=np.getMessage();
         }
 
 
@@ -56,10 +61,11 @@ public class Model {
             case "postgre":
                 try{
                     Class.forName(driver).getDeclaredConstructor().newInstance();
-                    conexionPostgre= DriverManager.getConnection(url,usuario, password);
-                    /*Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
-                    conexionPostgre= DriverManager.getConnection("jdbc:postgresql://localhost:5432/gestIncidencias",
+                    conexionPostgre= DriverManager.getConnection(url,usuario,password);
+                    /*Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();*/
+                    /*conexionPostgre= DriverManager.getConnection("jdbc:postgresql://localhost:5432/gestIncidencias",
                             "postgres", "nacho;pili;tq");*/
+
                 }catch (ClassNotFoundException e){
                     fallo=e.getMessage();
                 } catch (SQLException throwables) {
@@ -76,9 +82,9 @@ public class Model {
             case "mysql":
                 try {
                     Class.forName(driver);
-                    conexionMYSQL = DriverManager.getConnection(url, usuario, password);
-                    /*Class.forName(driver);
-                    conexionMYSQL = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestCAU?serverTimezone=UTC",
+                    conexionMYSQL = DriverManager.getConnection(url,usuario,password);
+                    /*Class.forName("com.mysql.cj.jdbc.Driver");*/
+                    /*conexionMYSQL = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestCAU?serverTimezone=UTC",
                             "nacho", "nachoCAU");*/
                 } catch (ClassNotFoundException e) {
                     fallo=e.getMessage();

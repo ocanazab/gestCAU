@@ -10,3 +10,4 @@ com/nacho/gestCAU/View.class
 com/nacho/gestCAU/util/Incidenciaspostgre.class
 com/nacho/gestCAU/Model.class
 com/nacho/gestCAU/util/TraspasoDTO.class
+com/nacho/gestCAU/util/Configuracion.class
