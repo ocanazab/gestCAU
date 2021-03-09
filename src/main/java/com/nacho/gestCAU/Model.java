@@ -1,5 +1,6 @@
 package com.nacho.gestCAU;
 
+import com.nacho.gestCAU.util.Incidenciasmysql;
 import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.R;
@@ -80,6 +81,7 @@ public class Model {
                 } catch (InvocationTargetException e) {
                     fallo=e.getMessage();
                 }
+                break;
             case "mysql":
                 try {
                     Class.forName(driver);
@@ -168,33 +170,55 @@ public class Model {
         return error;
     }
 
-    public ObservableList<Incidenciaspostgre> listaIncidencias(String usuario, String baseDatos) {
+    public ObservableList<Incidenciaspostgre> listaIncidencias(String usuario) {
         //Muestra las incidencias del usuario conectado.
 
 
         ObservableList<Incidenciaspostgre> data = FXCollections.observableArrayList();
 
-        switch (baseDatos){
-            case "postgre":
-                try{
-                    String sqlPostgre="select descripcion, fecha_creacion,codincidencia from incidencias where login='" + usuario + "' and ind_borrado=0 order by 3";
-                    PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-                    ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
+        try{
+            String sqlPostgre="select descripcion, fecha_creacion,codincidencia from incidencias where login='" + usuario + "' and ind_borrado=0 order by 3";
+            PreparedStatement obtenerIncidencias=conexionPostgre.prepareStatement(sqlPostgre,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
 
-                    while (rsIncidencias.next()){
-                        Incidenciaspostgre incid = new Incidenciaspostgre();
-                        incid.setDescripcion(rsIncidencias.getString("descripcion"));
-                        incid.setFechaCreacion(rsIncidencias.getDate("fecha_creacion"));
-                        incid.setCodIncidencia(rsIncidencias.getInt("codincidencia"));
-                        data.add(incid);
-                    }
+            while (rsIncidencias.next()) {
+                Incidenciaspostgre incid = new Incidenciaspostgre();
+                incid.setDescripcion(rsIncidencias.getString("descripcion"));
+                incid.setFechaCreacion(rsIncidencias.getDate("fecha_creacion"));
+                incid.setCodIncidencia(rsIncidencias.getInt("codincidencia"));
+                data.add(incid);
+            }
+        }catch(SQLException sqle){
+                Mensajeria.mostrarError("Listado de incidencias usuario","Error al obtener las incidencias: " + "\n" + sqle.getMessage());
+                data=null;
+        }
+        return data;
 
-                }catch(SQLException sqle){
-                    Mensajeria.mostrarError("Listado de incidencias usuario","Error al obtener las incidencias: " + "\n" + sqle.getMessage());
-                    data=null;
-                }
-                break;
-            case "mysql":
+    }
+
+    public ObservableList<Incidenciasmysql> listaGestionIncidencias() {
+
+        ObservableList<Incidenciasmysql> data = FXCollections.observableArrayList();
+
+        try{
+            String sqlMysql="select codIncidencia, descripcion,fecha_creacion,estado,nombre,apellidos,email from incidencias order by fecha_creacion";
+            PreparedStatement obtenerIncidencias=conexionMYSQL.prepareStatement(sqlMysql,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
+
+            while (rsIncidencias.next()) {
+                Incidenciasmysql incid = new Incidenciasmysql();
+                incid.setCodIncidencia(rsIncidencias.getString("codIncidencia"));
+                incid.setDescripcion(rsIncidencias.getString("descripcion"));
+                incid.setFechaCreacion(rsIncidencias.getDate("fecha_creacion"));
+                incid.setEstado(rsIncidencias.getString("estado"));
+                incid.setNombre(rsIncidencias.getString("nombre"));
+                incid.setApellidos(rsIncidencias.getString("apellidos"));
+                incid.setEmail(rsIncidencias.getString("email"));
+                data.add(incid);
+            }
+        }catch(SQLException sqle){
+            Mensajeria.mostrarError("Listado de incidencias usuario","Error al obtener las incidencias: " + "\n" + sqle.getMessage());
+            data=null;
         }
         return data;
 
@@ -272,6 +296,48 @@ public class Model {
             case "mysql":
         }
         return error;
+    }
+
+    public String traspasarIncidencias(){
+        //Leo las incidencias generadas en Postgre que tienen el indicador de traspaso=1, ind_borrado=0 y las inserto en la tabla Incidencias
+        //de Mysql. A continuación, les pongo el traspaso=0 para que no vuelvan a pasar.
+
+        String error="";
+        String resultado="";
+
+        try{
+            String sqlTraspaso="select incidencias.codincidencia,incidencias.descripcion, incidencias.fecha_creacion, usuarios.nombre, usuarios.apellidos, usuarios.email" +
+                    " from incidencias, usuarios where usuarios.login=incidencias.login and incidencias.ind_traspaso=1 and incidencias.ind_borrado=0;";
+            PreparedStatement traspasoIncidencias=conexionPostgre.prepareStatement(sqlTraspaso,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            ResultSet rsTraspasoIncidencias=traspasoIncidencias.executeQuery();
+
+            while (rsTraspasoIncidencias.next()) {
+                try{
+                    String sqlMysql = "insert into incidencias (descripcion,fecha_creacion,nombre, apellidos, email,ind_borrado,estado) values (?,?,?,?,?,?,?)";
+                    PreparedStatement sentenciaInsert= conexionMYSQL.prepareStatement(sqlMysql);
+                    sentenciaInsert.setString(1, rsTraspasoIncidencias.getString("descripcion"));
+                    sentenciaInsert.setDate(2, Date.valueOf(rsTraspasoIncidencias.getString("fecha_creacion")));
+                    sentenciaInsert.setString(3,rsTraspasoIncidencias.getString("nombre"));
+                    sentenciaInsert.setString(4,rsTraspasoIncidencias.getString("apellidos"));
+                    sentenciaInsert.setString(5, rsTraspasoIncidencias.getString("email"));
+                    sentenciaInsert.setInt(6,0);
+                    sentenciaInsert.setString(7,"En curso");
+                    sentenciaInsert.executeUpdate();
+
+                    //Actualizo en postgre el registro traspasado para que no vuelva a insertarse en futuras ejecuciones.
+                    String sqlPostgre="update incidencias set ind_traspaso=0 where codincidencia=?";
+                    PreparedStatement sentenciaUpdate= conexionPostgre.prepareStatement(sqlPostgre);
+                    sentenciaUpdate.setInt(1,rsTraspasoIncidencias.getInt("codincidencia"));
+                    sentenciaUpdate.executeUpdate();
+
+                }catch(SQLException sqle){
+                    error = sqle.getMessage();
+                }
+            }
+        }catch(SQLException sqle){
+            resultado= sqle.getMessage();
+        }
+        return resultado;
     }
 
     public void desconectarBD(String baseDatos){

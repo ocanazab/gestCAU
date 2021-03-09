@@ -50,7 +50,7 @@ public class ControllerCreacion {
         Model modelo = new Model();
         modelo.conectarBD(bd);
 
-        lista = modelo.listaIncidencias(usu,bd);
+        lista = modelo.listaIncidencias(usu);
 
         if(lista!=null){
             //Relleno el TableView
@@ -167,8 +167,6 @@ public class ControllerCreacion {
             modelo.desconectarBD(bd);
         }
     }
-
-
 
     @FXML
     private void removeIncidencia(){

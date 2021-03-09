@@ -117,8 +117,10 @@ public class ControllerLogin {
                     passDescifrada=descifraPass.descifra(passBD,claveCifrado);
 
                     if (txtUser.getText().equals(usuarioBD)&&txtPass.getText().equals(passDescifrada)){
+                        intercambio.baseDatos="mysql";
+                        intercambio.usuario=usuarioBD;
                         View vistaCreacion = new View();
-                        vistaCreacion.inicioGestionIncidencias();
+                        vistaCreacion.inicioGestionIncidencias(intercambio);
 
                     }else{
                         Mensajeria.mostrarError("Validación","Credenciales incorrectos.");

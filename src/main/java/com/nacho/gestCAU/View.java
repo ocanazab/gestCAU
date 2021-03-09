@@ -62,10 +62,12 @@ public class View extends Application {
         }
     }
 
-    public void inicioGestionIncidencias (){
+    public void inicioGestionIncidencias (TraspasoDTO intercambio){
         FXMLLoader loaderGestionIncidencias = new FXMLLoader();
         loaderGestionIncidencias.setLocation(R.getUI("FormGestionIncidencias.fxml"));
-        loaderGestionIncidencias.setController(new ControllerGestion());
+        ControllerGestion controlador = new ControllerGestion();
+        controlador.setData(intercambio.usuario,intercambio.baseDatos);
+        loaderGestionIncidencias.setController(controlador);
 
         AnchorPane anchorPane = null;
         try {

@@ -2,25 +2,32 @@ package com.nacho.gestCAU.util;
 
 import javafx.beans.property.SimpleStringProperty;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class Incidenciasmysql {
-    public SimpleStringProperty codIncidencia;
-    public SimpleStringProperty descripcion;
-    public SimpleDateFormat fechaCreacion;
-    public SimpleDateFormat fechaSolucion;
-    public SimpleStringProperty estado;
-    public SimpleStringProperty indBorrado;
-    public SimpleStringProperty codUsuario;
-    public SimpleStringProperty codTincidencia;
+    public String codIncidencia;
+    public String descripcion;
+    public Date fechaCreacion;
+    public Date fechaSolucion;
+    public String estado;
+    public int indBorrado;
+    public String nombre;
+    public String apellidos;
+    public String email;
+    public String codUsuario;
+    public int codTincidencia;
 
-    public Incidenciasmysql(SimpleStringProperty codIncidencia, SimpleStringProperty descripcion, SimpleDateFormat fechaCreacion, SimpleDateFormat fechaSolucion, SimpleStringProperty estado, SimpleStringProperty indBorrado, SimpleStringProperty codUsuario, SimpleStringProperty codTincidencia) {
+    public Incidenciasmysql(String codIncidencia, String descripcion, Date fechaCreacion, Date fechaSolucion, String estado, int indBorrado, String nombre, String apellidos, String email, String codUsuario, int codTincidencia) {
         this.codIncidencia = codIncidencia;
         this.descripcion = descripcion;
         this.fechaCreacion = fechaCreacion;
         this.fechaSolucion = fechaSolucion;
         this.estado = estado;
         this.indBorrado = indBorrado;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
         this.codUsuario = codUsuario;
         this.codTincidencia = codTincidencia;
     }
@@ -29,90 +36,90 @@ public class Incidenciasmysql {
     }
 
     public String getCodIncidencia() {
-        return codIncidencia.get();
-    }
-
-    public SimpleStringProperty codIncidenciaProperty() {
         return codIncidencia;
     }
 
     public void setCodIncidencia(String codIncidencia) {
-        this.codIncidencia.set(codIncidencia);
+        this.codIncidencia = codIncidencia;
     }
 
     public String getDescripcion() {
-        return descripcion.get();
-    }
-
-    public SimpleStringProperty descripcionProperty() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion.set(descripcion);
+        this.descripcion = descripcion;
     }
 
-    public SimpleDateFormat getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(SimpleDateFormat fechaCreacion) {
+    public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public SimpleDateFormat getFechaSolucion() {
+    public Date getFechaSolucion() {
         return fechaSolucion;
     }
 
-    public void setFechaSolucion(SimpleDateFormat fechaSolucion) {
+    public void setFechaSolucion(Date fechaSolucion) {
         this.fechaSolucion = fechaSolucion;
     }
 
     public String getEstado() {
-        return estado.get();
-    }
-
-    public SimpleStringProperty estadoProperty() {
         return estado;
     }
 
     public void setEstado(String estado) {
-        this.estado.set(estado);
+        this.estado = estado;
     }
 
-    public String getIndBorrado() {
-        return indBorrado.get();
-    }
-
-    public SimpleStringProperty indBorradoProperty() {
+    public int getIndBorrado() {
         return indBorrado;
     }
 
-    public void setIndBorrado(String indBorrado) {
-        this.indBorrado.set(indBorrado);
+    public void setIndBorrado(int indBorrado) {
+        this.indBorrado = indBorrado;
     }
 
     public String getCodUsuario() {
-        return codUsuario.get();
-    }
-
-    public SimpleStringProperty codUsuarioProperty() {
         return codUsuario;
     }
 
     public void setCodUsuario(String codUsuario) {
-        this.codUsuario.set(codUsuario);
+        this.codUsuario = codUsuario;
     }
 
-    public String getCodTincidencia() {
-        return codTincidencia.get();
-    }
-
-    public SimpleStringProperty codTincidenciaProperty() {
+    public int getCodTincidencia() {
         return codTincidencia;
     }
 
-    public void setCodTincidencia(String codTincidencia) {
-        this.codTincidencia.set(codTincidencia);
+    public void setCodTincidencia(int codTincidencia) {
+        this.codTincidencia = codTincidencia;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
