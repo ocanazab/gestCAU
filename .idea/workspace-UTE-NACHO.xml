@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d3b68d55-94d7-4293-9957-646a982cd91c" name="Default Changelist" comment="Cambios menores" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kTtwr9NXStTszGyBUU94HMUvQu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ejemplofxml_ConectarDB" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="Maven.gestCAU [javafx:compile]">
+    <configuration name="View" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.nacho.gestCAU.View" />
+      <module name="gestCAU" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nacho.gestCAU.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gestCAU [clean]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="gestCAU [clean:clean]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean:clean" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="gestCAU [javafx:compile]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:compile" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="gestCAU [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Maven.gestCAU [javafx:compile]" />
+        <item itemvalue="Application.View" />
+        <item itemvalue="Maven.gestCAU [javafx:run]" />
+        <item itemvalue="Maven.gestCAU [clean]" />
+        <item itemvalue="Maven.gestCAU [clean:clean]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d3b68d55-94d7-4293-9957-646a982cd91c" name="Default Changelist" comment="" />
+      <created>1605736651349</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605736651349</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Version Inicial. Fallo en conexion Postgre">
+      <created>1606774197865</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606774197865</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Añado clase de cifrado para la contraseña.">
+      <created>1606860156373</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606860156374</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Cambios para intentar solucionar NullPointerException en validar dentro de Postgre">
+      <created>1606864820127</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606864820127</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Añadido combo para guardar el usuario en la base de datos correspondiente.">
+      <created>1607602142012</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1607602142023</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Cambios menores">
+      <created>1607610732529</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1607610732529</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Version Inicial. Fallo en conexion Postgre" />
+    <MESSAGE value="Añado clase de cifrado para la contraseña." />
+    <MESSAGE value="Cambios para intentar solucionar NullPointerException en validar dentro de Postgre" />
+    <MESSAGE value="Añadido combo para guardar el usuario en la base de datos correspondiente." />
+    <MESSAGE value="Cambios menores" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios menores" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="768" y="234" width="380" height="578" key="#com.intellij.ide.util.MemberChooser" timestamp="1607524087231">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="768" y="234" width="380" height="578" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1047@0.0.1920.1047" timestamp="1607524087231" />
+    <state x="781" y="210" width="353" height="626" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1606172732012">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="781" y="210" width="353" height="626" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1920.1047@0.0.1920.1047" timestamp="1606172732012" />
+    <state x="743" y="269" width="430" height="508" key="FileChooserDialogImpl" timestamp="1606255993412">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="743" y="269" width="430" height="508" key="FileChooserDialogImpl/0.0.1920.1047@0.0.1920.1047" timestamp="1606255993412" />
+    <state width="1878" height="279" key="GridCell.Tab.0.bottom" timestamp="1607610758906">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1878" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1047@0.0.1920.1047" timestamp="1607610758906" />
+    <state width="1878" height="279" key="GridCell.Tab.0.center" timestamp="1607610758905">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1878" height="279" key="GridCell.Tab.0.center/0.0.1920.1047@0.0.1920.1047" timestamp="1607610758905" />
+    <state width="1878" height="279" key="GridCell.Tab.0.left" timestamp="1607610758904">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1878" height="279" key="GridCell.Tab.0.left/0.0.1920.1047@0.0.1920.1047" timestamp="1607610758904" />
+    <state width="1878" height="279" key="GridCell.Tab.0.right" timestamp="1607610758905">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1878" height="279" key="GridCell.Tab.0.right/0.0.1920.1047@0.0.1920.1047" timestamp="1607610758905" />
+    <state width="1878" height="344" key="GridCell.Tab.1.bottom" timestamp="1606516070995">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1878" height="344" key="GridCell.Tab.1.bottom/0.0.1920.1047@0.0.1920.1047" timestamp="1606516070994" />
+    <state width="1878" height="344" key="GridCell.Tab.1.center" timestamp="1606516070991">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1878" height="344" key="GridCell.Tab.1.center/0.0.1920.1047@0.0.1920.1047" timestamp="1606516070991" />
+    <state width="1878" height="344" key="GridCell.Tab.1.left" timestamp="1606516070991">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1878" height="344" key="GridCell.Tab.1.left/0.0.1920.1047@0.0.1920.1047" timestamp="1606516070991" />
+    <state width="1878" height="344" key="GridCell.Tab.1.right" timestamp="1606516070993">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state width="1878" height="344" key="GridCell.Tab.1.right/0.0.1920.1047@0.0.1920.1047" timestamp="1606516070993" />
+    <state x="396" y="246" width="806" height="525" key="Vcs.Push.Dialog.v2" timestamp="1607610741855">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="396" y="246" width="806" height="525" key="Vcs.Push.Dialog.v2/0.0.1920.1047@0.0.1920.1047" timestamp="1607610741855" />
+    <state x="768" y="442" width="379" height="163" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607502475201">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="768" y="442" width="379" height="163" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1047@0.0.1920.1047" timestamp="1607502475201" />
+    <state x="464" y="283" width="918" height="622" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1606514154621">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="464" y="283" width="918" height="622" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1047@0.0.1920.1047" timestamp="1606514154621" />
+    <state x="657" y="402" width="387" height="173" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1606775326103">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="657" y="402" width="387" height="173" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1047@0.0.1920.1047" timestamp="1606775326103" />
+    <state x="623" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1606511097182">
+      <screen x="0" y="0" width="1920" height="1047" />
+    </state>
+    <state x="623" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1920.1047@0.0.1920.1047" timestamp="1606511097182" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" log-stack="true" type="java-exception">
+          <dependency master-id="0" />
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="9" />
+        </breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="java-exception">
+          <dependency id="0" />
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
