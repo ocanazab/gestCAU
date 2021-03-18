@@ -1,7 +1,6 @@
 package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Incidenciasmysql;
-import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -12,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.time.LocalDate;
 
 public class ControllerGestion {
     @FXML
@@ -70,10 +67,6 @@ public class ControllerGestion {
         //Preparo el TableView
         TableView.TableViewSelectionModel<Incidenciasmysql> selectionModel = tblGestionIncidencias.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
-
-        //Añado los estados para las incidencias
-        //cbEstado.getItems().add(0,"En curso");
-        //cbEstado.getItems().add(1, "Solucionada");
 
         ObservableList<String> listaEstados = FXCollections.observableArrayList("En curso","Solucionada");
         cbEstado.setItems(listaEstados);
@@ -154,9 +147,13 @@ public class ControllerGestion {
 
         if (txtDescripcionIncidencia.getText().isEmpty()){
             resultado="Error";
+            Mensajeria.mostrarError("Error al validar","Es necesario introducir una descripción de incidencia.");
         }
 
-        if (cbEstado.getValue()=="Solucionada" && dpFechaSolucion.getValue().toString().isEmpty()){
+        Mensajeria.mostrarInfo("Valor combo",cbEstado.getValue().toString());
+        Mensajeria.mostrarInfo("Valor fecha",dpFechaSolucion.getValue().toString());
+
+        if (cbEstado.getValue().toString()=="Solucionada" && dpFechaSolucion.getValue().toString().isEmpty()){
             resultado="Error";
             Mensajeria.mostrarError("Error al validar","Si la incidencia está solucionada, es necesario introducir una fecha de solución");
         }
@@ -172,7 +169,10 @@ public class ControllerGestion {
                     //Si no hay error, muestro el mensaje y refresco la tabla.
                     Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");
                     txtDescripcionIncidencia.setText("");
-
+                    dpFechaSolucion.setValue(null);
+                    txtNombre.setText("");
+                    txtApellidos.setText("");
+                    txtEmail.setText("");
                 }else{
                     Mensajeria.mostrarError("Actualizar Incidencia","Error al actualizar la incidencia."+"\n"+resultado);
                 }
@@ -184,5 +184,9 @@ public class ControllerGestion {
         }
     }
 
+    @FXML
+    private void salir(){
+        System.exit(0);
+    }
 
 }
