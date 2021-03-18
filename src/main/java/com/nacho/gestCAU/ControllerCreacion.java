@@ -151,7 +151,7 @@ public class ControllerCreacion {
 
             if (resultado.isEmpty()){
 
-                resultado=modelo.updateIncidencia(txtDescripcion.getText(),fechaIncidencia.getValue(),numeroinci,usu,bd);
+                resultado=modelo.updateIncidencia(txtDescripcion.getText(),fechaIncidencia.getValue(),numeroinci,usu,bd,"null");
                 if (resultado.isEmpty()){
                     //Si no hay error, muestro el mensaje y refresco la tabla.
                     Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");

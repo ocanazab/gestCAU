@@ -207,7 +207,7 @@ public class Model {
 
             while (rsIncidencias.next()) {
                 Incidenciasmysql incid = new Incidenciasmysql();
-                incid.setCodIncidencia(rsIncidencias.getString("codIncidencia"));
+                incid.setCodIncidencia(rsIncidencias.getInt("codIncidencia"));
                 incid.setDescripcion(rsIncidencias.getString("descripcion"));
                 incid.setFechaCreacion(rsIncidencias.getDate("fecha_creacion"));
                 incid.setEstado(rsIncidencias.getString("estado"));
@@ -273,7 +273,7 @@ public class Model {
         return error;
     }
 
-    public String updateIncidencia(String descripcion, LocalDate fechaCreacion, int codigoinci, String usuario, String baseDatos){
+    public String updateIncidencia(String descripcion, LocalDate fechaCreacion, int codigoinci, String usuario, String baseDatos, String estado){
 
         //Para modificar una incidencia seleccionada
 
@@ -294,6 +294,19 @@ public class Model {
                 }
                 break;
             case "mysql":
+                try{
+                    String sqlMysql="update incidencias set descripcion=?, estado=?, fecha_creacion=?, nombre=?, apellidos=?, email=? where codincidencia=?";
+                    PreparedStatement sentenciaUpdate= conexionMYSQL.prepareStatement(sqlMysql);
+                    sentenciaUpdate.setString(1, descripcion);
+                    sentenciaUpdate.setString(2,estado);
+
+                    sentenciaUpdate.setDate(2, Date.valueOf(fechaCreacion));
+                    sentenciaUpdate.setString(3, usuario);
+                    sentenciaUpdate.setInt(4,codigoinci);
+                    sentenciaUpdate.executeUpdate();
+                }catch(SQLException sqle){
+                    error = sqle.getMessage();
+                }
         }
         return error;
     }

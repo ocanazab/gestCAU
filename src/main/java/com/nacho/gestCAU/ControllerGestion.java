@@ -1,6 +1,7 @@
 package com.nacho.gestCAU;
 
 import com.nacho.gestCAU.util.Incidenciasmysql;
+import com.nacho.gestCAU.util.Incidenciaspostgre;
 import com.nacho.gestCAU.util.Mensajeria;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.time.LocalDate;
 
 public class ControllerGestion {
     @FXML
@@ -52,6 +55,7 @@ public class ControllerGestion {
 
     private String usu;
     private String bd;
+    private int numeroinci;
 
     public void setData(String usuario, String baseDatos){
         usu=usuario;
@@ -66,6 +70,13 @@ public class ControllerGestion {
         //Preparo el TableView
         TableView.TableViewSelectionModel<Incidenciasmysql> selectionModel = tblGestionIncidencias.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
+
+        //Añado los estados para las incidencias
+        //cbEstado.getItems().add(0,"En curso");
+        //cbEstado.getItems().add(1, "Solucionada");
+
+        ObservableList<String> listaEstados = FXCollections.observableArrayList("En curso","Solucionada");
+        cbEstado.setItems(listaEstados);
 
         String resultado="";
 
@@ -119,6 +130,58 @@ public class ControllerGestion {
         //modelo.desconectarBD(bd);
         modelo.desconectarBD(bd);
         return resultado;
+    }
+    @FXML
+    private void rellenarDatos(){
+        ObservableList<Incidenciasmysql> filaseleccionada = FXCollections.observableArrayList();
+        filaseleccionada=tblGestionIncidencias.getSelectionModel().getSelectedItems();
+
+
+        txtDescripcionIncidencia.setText(filaseleccionada.get(0).getDescripcion());
+        txtNombre.setText(filaseleccionada.get(0).getNombre());
+        txtApellidos.setText(filaseleccionada.get(0).getApellidos());
+        txtEmail.setText(filaseleccionada.get(0).getEmail());
+        dpFechaCreacion.setValue(filaseleccionada.get(0).getFechaCreacion().toLocalDate());
+        cbEstado.setValue(filaseleccionada.get(0).getEstado());
+        numeroinci=filaseleccionada.get(0).getCodIncidencia();
+
+
+    }
+
+    @FXML
+    private void modifIncidencia(){
+        String resultado="";
+
+        if (txtDescripcionIncidencia.getText().isEmpty()){
+            resultado="Error";
+        }
+
+        if (cbEstado.getValue()=="Solucionada" && dpFechaSolucion.getValue().toString().isEmpty()){
+            resultado="Error";
+            Mensajeria.mostrarError("Error al validar","Si la incidencia está solucionada, es necesario introducir una fecha de solución");
+        }
+
+        if (resultado.isEmpty()){
+            //Conectamos con la base de datos
+            Model modelo = new Model();
+            resultado=modelo.conectarBD(bd);
+
+            if (resultado.isEmpty()){
+                resultado=modelo.updateIncidencia(txtDescripcionIncidencia.getText(),dpFechaSolucion.getValue(),numeroinci,usu,bd,cbEstado.getValue().toString());
+                if (resultado.isEmpty()){
+                    //Si no hay error, muestro el mensaje y refresco la tabla.
+                    Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");
+                    txtDescripcionIncidencia.setText("");
+
+                }else{
+                    Mensajeria.mostrarError("Actualizar Incidencia","Error al actualizar la incidencia."+"\n"+resultado);
+                }
+            }else{
+                Mensajeria.mostrarError("Actualizar Incidencia","Error al conectar a la base de datos."+"\n"+resultado);
+            }
+            refrescaTabla();
+            modelo.desconectarBD(bd);
+        }
     }
 
 

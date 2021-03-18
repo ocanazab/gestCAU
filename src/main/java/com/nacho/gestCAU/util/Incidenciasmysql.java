@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class Incidenciasmysql {
-    public String codIncidencia;
+    public int codIncidencia;
     public String descripcion;
     public Date fechaCreacion;
     public Date fechaSolucion;
@@ -18,7 +18,7 @@ public class Incidenciasmysql {
     public String codUsuario;
     public int codTincidencia;
 
-    public Incidenciasmysql(String codIncidencia, String descripcion, Date fechaCreacion, Date fechaSolucion, String estado, int indBorrado, String nombre, String apellidos, String email, String codUsuario, int codTincidencia) {
+    public Incidenciasmysql(int codIncidencia, String descripcion, Date fechaCreacion, Date fechaSolucion, String estado, int indBorrado, String nombre, String apellidos, String email, String codUsuario, int codTincidencia) {
         this.codIncidencia = codIncidencia;
         this.descripcion = descripcion;
         this.fechaCreacion = fechaCreacion;
@@ -35,11 +35,11 @@ public class Incidenciasmysql {
     public Incidenciasmysql() {
     }
 
-    public String getCodIncidencia() {
+    public int getCodIncidencia() {
         return codIncidencia;
     }
 
-    public void setCodIncidencia(String codIncidencia) {
+    public void setCodIncidencia(int codIncidencia) {
         this.codIncidencia = codIncidencia;
     }
 

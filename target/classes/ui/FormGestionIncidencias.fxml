@@ -18,15 +18,15 @@
             <Font name="MathJax_Typewriter-Regular" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tblGestionIncidencias" layoutX="23.0" layoutY="90.0" prefHeight="286.0" prefWidth="1261.0">
+      <TableView fx:id="tblGestionIncidencias" layoutX="23.0" layoutY="90.0" onMouseClicked="#rellenarDatos" prefHeight="286.0" prefWidth="1261.0">
         <columns>
-            <TableColumn fx:id="colnumIncidencia" editable="false" prefWidth="92.0" text="Id" />
-          <TableColumn fx:id="colDescripcion" editable="false" minWidth="0.0" prefWidth="414.0" text="Descripción" />
-            <TableColumn fx:id="colFecha" editable="false" minWidth="0.0" prefWidth="97.0" text="Fecha" />
-            <TableColumn fx:id="colEstado" editable="false" prefWidth="104.0" text="Estado" />
-            <TableColumn fx:id="colNombre" editable="false" prefWidth="167.0" text="Nombre" />
-            <TableColumn fx:id="colApellidos" editable="false" prefWidth="195.0" text="Apellidos" />
-            <TableColumn fx:id="colEmail" editable="false" prefWidth="266.0" text="E-mail" />
+            <TableColumn fx:id="colnumIncidencia" editable="false" prefWidth="92.0" sortable="false" text="Id" />
+          <TableColumn fx:id="colDescripcion" editable="false" minWidth="0.0" prefWidth="414.0" sortable="false" text="Descripción" />
+            <TableColumn fx:id="colFecha" editable="false" minWidth="0.0" prefWidth="97.0" sortable="false" text="Fecha" />
+            <TableColumn fx:id="colEstado" editable="false" prefWidth="104.0" sortable="false" text="Estado" />
+            <TableColumn fx:id="colNombre" editable="false" prefWidth="167.0" sortable="false" text="Nombre" />
+            <TableColumn fx:id="colApellidos" editable="false" prefWidth="195.0" sortable="false" text="Apellidos" />
+            <TableColumn fx:id="colEmail" editable="false" prefWidth="266.0" sortable="false" text="E-mail" />
         </columns>
       </TableView>
       <AnchorPane layoutX="23.0" layoutY="435.0" prefHeight="329.0" prefWidth="816.0" style="-fx-border-style: dashed; -fx-border-width: 1px;">
@@ -48,7 +48,7 @@
                   <Font name="MathJax_Typewriter-Regular" size="18.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="cbTipoIncidencia" layoutX="191.0" layoutY="143.0" prefHeight="26.0" prefWidth="210.0" />
+            <ChoiceBox fx:id="cbTipoIncidencia" disable="true" layoutX="191.0" layoutY="143.0" prefHeight="26.0" prefWidth="210.0" />
             <Label layoutX="24.0" layoutY="185.0" text="Estado:">
                <font>
                   <Font name="MathJax_Typewriter-Regular" size="18.0" />
@@ -76,9 +76,9 @@
                   <Font name="MathJax_Typewriter-Regular" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="521.0" layoutY="184.0" prefHeight="26.0" prefWidth="256.0" />
-            <TextField layoutX="521.0" layoutY="222.0" prefHeight="26.0" prefWidth="256.0" />
-            <TextField layoutX="521.0" layoutY="259.0" prefHeight="26.0" prefWidth="256.0" />
+            <TextField fx:id="txtNombre" layoutX="521.0" layoutY="184.0" prefHeight="26.0" prefWidth="256.0" />
+            <TextField fx:id="txtApellidos" layoutX="521.0" layoutY="222.0" prefHeight="26.0" prefWidth="256.0" />
+            <TextField fx:id="txtEmail" layoutX="521.0" layoutY="259.0" prefHeight="26.0" prefWidth="256.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="847.0" layoutY="435.0" prefHeight="329.0" prefWidth="437.0" style="-fx-border-style: dashed; -fx-border-width: 1px;">
