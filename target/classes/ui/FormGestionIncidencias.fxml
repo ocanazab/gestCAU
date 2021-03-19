@@ -83,8 +83,8 @@
       </AnchorPane>
       <AnchorPane layoutX="847.0" layoutY="435.0" prefHeight="329.0" prefWidth="437.0" style="-fx-border-style: dashed; -fx-border-width: 1px;">
          <children>
-            <Button layoutX="116.0" layoutY="43.0" mnemonicParsing="false" prefHeight="112.0" prefWidth="225.0" text="Modificar" />
-            <Button layoutX="116.0" layoutY="176.0" mnemonicParsing="false" prefHeight="112.0" prefWidth="225.0" text="Salir" />
+            <Button fx:id="btnModifIncidencia" layoutX="116.0" layoutY="43.0" mnemonicParsing="false" onAction="#modifIncidencia" prefHeight="112.0" prefWidth="225.0" text="Modificar" />
+            <Button fx:id="btnSalir" layoutX="116.0" layoutY="176.0" mnemonicParsing="false" onAction="#salir" prefHeight="112.0" prefWidth="225.0" text="Salir" />
          </children>
       </AnchorPane>
       <ChoiceBox layoutX="134.0" layoutY="392.0" prefHeight="26.0" prefWidth="190.0" />

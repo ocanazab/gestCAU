@@ -140,8 +140,6 @@ public class ControllerCreacion {
     private void modifIncidencia(){
         String resultado="";
 
-
-
         if (txtDescripcion.getText().isEmpty()){
             Mensajeria.mostrarError("Faltan datos","La descripción de la incidencia no puede estar vacia");
         }else{
