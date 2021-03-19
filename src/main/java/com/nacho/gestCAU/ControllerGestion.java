@@ -12,6 +12,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class ControllerGestion {
     @FXML
     private TextArea txtDescripcionIncidencia;
@@ -144,16 +147,18 @@ public class ControllerGestion {
     @FXML
     private void modifIncidencia(){
         String resultado="";
+        String checkFecha="";
+        //LocalDate fechaCreacion=null;
 
         if (txtDescripcionIncidencia.getText().isEmpty()){
             resultado="Error";
             Mensajeria.mostrarError("Error al validar","Es necesario introducir una descripción de incidencia.");
         }
 
-        Mensajeria.mostrarInfo("Valor combo",cbEstado.getValue().toString());
-        Mensajeria.mostrarInfo("Valor fecha",dpFechaSolucion.getValue().toString());
+        //Compruebo si el combo de fecha de creación tiene valor o no
+        if (dpFechaSolucion.getValue()==null){ checkFecha="null"; }
 
-        if (cbEstado.getValue().toString()=="Solucionada" && dpFechaSolucion.getValue().toString().isEmpty()){
+        if (cbEstado.getValue().toString()=="Solucionada" && checkFecha=="null"){
             resultado="Error";
             Mensajeria.mostrarError("Error al validar","Si la incidencia está solucionada, es necesario introducir una fecha de solución");
         }
@@ -164,7 +169,13 @@ public class ControllerGestion {
             resultado=modelo.conectarBD(bd);
 
             if (resultado.isEmpty()){
-                resultado=modelo.updateIncidencia(txtDescripcionIncidencia.getText(),dpFechaSolucion.getValue(),numeroinci,usu,bd,cbEstado.getValue().toString());
+                if (checkFecha=="null"){
+                    Mensajeria.mostrarInfo("Antes de modelo.updateIncidencia","Fecha Nula" + txtDescripcionIncidencia.getText() +Date.valueOf(dpFechaSolucion.getValue()) + numeroinci + cbEstado.getValue()+ txtNombre.getText()+txtApellidos.getText()+txtEmail.getText());
+                    resultado=modelo.updateIncidencia(txtDescripcionIncidencia.getText(), null,numeroinci,usu,bd,cbEstado.getValue().toString(),txtNombre.getText(),txtApellidos.getText(),txtEmail.getText());
+                }else{
+                    resultado=modelo.updateIncidencia(txtDescripcionIncidencia.getText(),dpFechaSolucion.getValue(),numeroinci,usu,bd,cbEstado.getValue().toString(),txtNombre.getText(),txtApellidos.getText(),txtEmail.getText());
+                }
+
                 if (resultado.isEmpty()){
                     //Si no hay error, muestro el mensaje y refresco la tabla.
                     Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");

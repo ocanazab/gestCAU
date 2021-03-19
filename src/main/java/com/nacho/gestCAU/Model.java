@@ -273,7 +273,7 @@ public class Model {
         return error;
     }
 
-    public String updateIncidencia(String descripcion, LocalDate fechaCreacion, int codigoinci, String usuario, String baseDatos, String estado){
+    public String updateIncidencia(String descripcion, LocalDate fechaCreacion, int codigoinci, String usuario, String baseDatos, String estado, String nombre, String apellidos, String email){
 
         //Para modificar una incidencia seleccionada
 
@@ -299,10 +299,11 @@ public class Model {
                     PreparedStatement sentenciaUpdate= conexionMYSQL.prepareStatement(sqlMysql);
                     sentenciaUpdate.setString(1, descripcion);
                     sentenciaUpdate.setString(2,estado);
-
-                    sentenciaUpdate.setDate(2, Date.valueOf(fechaCreacion));
-                    sentenciaUpdate.setString(3, usuario);
-                    sentenciaUpdate.setInt(4,codigoinci);
+                    sentenciaUpdate.setDate(3, Date.valueOf(fechaCreacion));
+                    sentenciaUpdate.setString(4,nombre);
+                    sentenciaUpdate.setString(5,apellidos);
+                    sentenciaUpdate.setString(6, email);
+                    sentenciaUpdate.setInt(7,codigoinci);
                     sentenciaUpdate.executeUpdate();
                 }catch(SQLException sqle){
                     error = sqle.getMessage();
