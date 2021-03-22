@@ -201,7 +201,7 @@ public class Model {
         ObservableList<Incidenciasmysql> data = FXCollections.observableArrayList();
 
         try{
-            String sqlMysql="select codIncidencia, descripcion,fecha_creacion,estado,nombre,apellidos,email from incidencias order by fecha_creacion";
+            String sqlMysql="select codIncidencia, descripcion,fecha_creacion,fecha_solucion,estado,nombre,apellidos,email from incidencias order by fecha_creacion";
             PreparedStatement obtenerIncidencias=conexionMYSQL.prepareStatement(sqlMysql,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             ResultSet rsIncidencias=obtenerIncidencias.executeQuery();
 
@@ -210,6 +210,7 @@ public class Model {
                 incid.setCodIncidencia(rsIncidencias.getInt("codIncidencia"));
                 incid.setDescripcion(rsIncidencias.getString("descripcion"));
                 incid.setFechaCreacion(rsIncidencias.getDate("fecha_creacion"));
+                incid.setFechaSolucion(rsIncidencias.getDate("fecha_solucion"));
                 incid.setEstado(rsIncidencias.getString("estado"));
                 incid.setNombre(rsIncidencias.getString("nombre"));
                 incid.setApellidos(rsIncidencias.getString("apellidos"));
@@ -273,7 +274,7 @@ public class Model {
         return error;
     }
 
-    public String updateIncidencia(String descripcion, LocalDate fechaCreacion, int codigoinci, String usuario, String baseDatos, String estado){
+    public String updateIncidencia(String descripcion, LocalDate fecha, int codigoinci, String usuario, String baseDatos, String estado, String nombre, String apellidos, String email){
 
         //Para modificar una incidencia seleccionada
 
@@ -284,7 +285,7 @@ public class Model {
                     String sqlPostgre="update incidencias set descripcion=?, fecha_creacion=? where login= ? and codincidencia=?";
                     PreparedStatement sentenciaUpdate= conexionPostgre.prepareStatement(sqlPostgre);
                     sentenciaUpdate.setString(1, descripcion);
-                    sentenciaUpdate.setDate(2, Date.valueOf(fechaCreacion));
+                    sentenciaUpdate.setDate(2, Date.valueOf(fecha));
                     sentenciaUpdate.setString(3, usuario);
                     sentenciaUpdate.setInt(4,codigoinci);
                     sentenciaUpdate.executeUpdate();
@@ -295,15 +296,30 @@ public class Model {
                 break;
             case "mysql":
                 try{
-                    String sqlMysql="update incidencias set descripcion=?, estado=?, fecha_creacion=?, nombre=?, apellidos=?, email=? where codincidencia=?";
-                    PreparedStatement sentenciaUpdate= conexionMYSQL.prepareStatement(sqlMysql);
-                    sentenciaUpdate.setString(1, descripcion);
-                    sentenciaUpdate.setString(2,estado);
 
-                    sentenciaUpdate.setDate(2, Date.valueOf(fechaCreacion));
-                    sentenciaUpdate.setString(3, usuario);
-                    sentenciaUpdate.setInt(4,codigoinci);
-                    sentenciaUpdate.executeUpdate();
+                    if (fecha==null){
+                        String sqlMysql="update incidencias set descripcion=?, estado=?, nombre=?, apellidos=?, email=? where codIncidencia=?";
+                        PreparedStatement sentenciaUpdate= conexionMYSQL.prepareStatement(sqlMysql);
+                        sentenciaUpdate.setString(1, descripcion);
+                        sentenciaUpdate.setString(2,estado);
+                        sentenciaUpdate.setString(3, nombre);
+                        sentenciaUpdate.setString(4,apellidos);
+                        sentenciaUpdate.setString(5,email);
+                        sentenciaUpdate.setInt(6,codigoinci);
+                        sentenciaUpdate.executeUpdate();
+
+                    }else{
+                        String sqlMysql="update incidencias set descripcion=?, estado=?, fecha_solucion=?, nombre=?, apellidos=?, email=? where codIncidencia=?";
+                        PreparedStatement sentenciaUpdate= conexionMYSQL.prepareStatement(sqlMysql);
+                        sentenciaUpdate.setString(1, descripcion);
+                        sentenciaUpdate.setString(2,estado);
+                        sentenciaUpdate.setDate(3, Date.valueOf(fecha));
+                        sentenciaUpdate.setString(4, nombre);
+                        sentenciaUpdate.setString(5,apellidos);
+                        sentenciaUpdate.setString(6,email);
+                        sentenciaUpdate.setInt(7,codigoinci);
+                        sentenciaUpdate.executeUpdate();
+                    }
                 }catch(SQLException sqle){
                     error = sqle.getMessage();
                 }

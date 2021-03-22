@@ -22,7 +22,8 @@
         <columns>
             <TableColumn fx:id="colnumIncidencia" editable="false" prefWidth="92.0" sortable="false" text="Id" />
           <TableColumn fx:id="colDescripcion" editable="false" minWidth="0.0" prefWidth="414.0" sortable="false" text="Descripción" />
-            <TableColumn fx:id="colFecha" editable="false" minWidth="0.0" prefWidth="97.0" sortable="false" text="Fecha" />
+            <TableColumn fx:id="colFechaCreacion" editable="false" minWidth="0.0" prefWidth="97.0" sortable="false" text=" Creada" />
+            <TableColumn fx:id="colFechaSolucion" editable="false" minWidth="0.0" prefWidth="97.0" sortable="false" text="Solucionada" />
             <TableColumn fx:id="colEstado" editable="false" prefWidth="104.0" sortable="false" text="Estado" />
             <TableColumn fx:id="colNombre" editable="false" prefWidth="167.0" sortable="false" text="Nombre" />
             <TableColumn fx:id="colApellidos" editable="false" prefWidth="195.0" sortable="false" text="Apellidos" />

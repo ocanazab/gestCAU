@@ -12,6 +12,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.time.LocalDate;
+
 public class ControllerGestion {
     @FXML
     private TextArea txtDescripcionIncidencia;
@@ -40,7 +42,9 @@ public class ControllerGestion {
     @FXML
     private TableColumn colnumIncidencia;
     @FXML
-    private TableColumn colFecha;
+    private TableColumn colFechaCreacion;
+    @FXML
+    private TableColumn colFechaSolucion;
     @FXML
     private TableColumn colEstado;
     @FXML
@@ -68,6 +72,7 @@ public class ControllerGestion {
         TableView.TableViewSelectionModel<Incidenciasmysql> selectionModel = tblGestionIncidencias.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
 
+        //Relleno el combo de estados.
         ObservableList<String> listaEstados = FXCollections.observableArrayList("En curso","Solucionada");
         cbEstado.setItems(listaEstados);
 
@@ -108,7 +113,8 @@ public class ControllerGestion {
             for (int i = 0; i < lista.size(); i++) {
                 colnumIncidencia.setCellValueFactory(new PropertyValueFactory("codIncidencia"));
                 colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
-                colFecha.setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
+                colFechaCreacion.setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
+                colFechaSolucion.setCellValueFactory(new PropertyValueFactory("fechaSolucion"));
                 colEstado.setCellValueFactory(new PropertyValueFactory("estado"));
                 colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
                 colApellidos.setCellValueFactory(new PropertyValueFactory("apellidos"));
@@ -135,6 +141,11 @@ public class ControllerGestion {
         txtApellidos.setText(filaseleccionada.get(0).getApellidos());
         txtEmail.setText(filaseleccionada.get(0).getEmail());
         dpFechaCreacion.setValue(filaseleccionada.get(0).getFechaCreacion().toLocalDate());
+        if (filaseleccionada.get(0).getFechaSolucion()==null){
+            dpFechaSolucion.setValue(null);
+        }else{
+            dpFechaSolucion.setValue(filaseleccionada.get(0).getFechaSolucion().toLocalDate());
+        }
         cbEstado.setValue(filaseleccionada.get(0).getEstado());
         numeroinci=filaseleccionada.get(0).getCodIncidencia();
 
@@ -144,19 +155,24 @@ public class ControllerGestion {
     @FXML
     private void modifIncidencia(){
         String resultado="";
+        LocalDate fecha;
 
         if (txtDescripcionIncidencia.getText().isEmpty()){
             resultado="Error";
             Mensajeria.mostrarError("Error al validar","Es necesario introducir una descripción de incidencia.");
         }
 
-        Mensajeria.mostrarInfo("Valor combo",cbEstado.getValue().toString());
-        Mensajeria.mostrarInfo("Valor fecha",dpFechaSolucion.getValue().toString());
-
-        if (cbEstado.getValue().toString()=="Solucionada" && dpFechaSolucion.getValue().toString().isEmpty()){
+        if (cbEstado.getValue().toString()=="Solucionada" && dpFechaSolucion.getValue()==null){
             resultado="Error";
             Mensajeria.mostrarError("Error al validar","Si la incidencia está solucionada, es necesario introducir una fecha de solución");
         }
+
+        if (cbEstado.getValue().toString()=="En curso"){
+            fecha=null;
+        }else{
+            fecha=dpFechaSolucion.getValue();
+        }
+
 
         if (resultado.isEmpty()){
             //Conectamos con la base de datos
@@ -164,7 +180,7 @@ public class ControllerGestion {
             resultado=modelo.conectarBD(bd);
 
             if (resultado.isEmpty()){
-                resultado=modelo.updateIncidencia(txtDescripcionIncidencia.getText(),dpFechaSolucion.getValue(),numeroinci,usu,bd,cbEstado.getValue().toString());
+                resultado=modelo.updateIncidencia(txtDescripcionIncidencia.getText(),fecha,numeroinci,usu,bd,cbEstado.getValue().toString(),txtNombre.getText(),txtApellidos.getText(),txtEmail.getText());
                 if (resultado.isEmpty()){
                     //Si no hay error, muestro el mensaje y refresco la tabla.
                     Mensajeria.mostrarInfo("Actualizar incidencia","Incidencia modificada con éxito.");
