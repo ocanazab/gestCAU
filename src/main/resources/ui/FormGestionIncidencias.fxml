@@ -88,13 +88,13 @@
             <Button fx:id="btnSalir" layoutX="116.0" layoutY="176.0" mnemonicParsing="false" onAction="#salir" prefHeight="112.0" prefWidth="225.0" text="Salir" />
          </children>
       </AnchorPane>
-      <ChoiceBox layoutX="134.0" layoutY="392.0" prefHeight="26.0" prefWidth="190.0" />
+      <ChoiceBox fx:id="cbBusqueda" layoutX="134.0" layoutY="392.0" prefHeight="26.0" prefWidth="190.0" />
       <Label layoutX="29.0" layoutY="395.0" text="Buscar por:">
          <font>
             <Font name="MathJax_Typewriter-Regular" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="334.0" layoutY="392.0" prefHeight="26.0" prefWidth="300.0" />
+      <TextField fx:id="txtBusqueda" layoutX="334.0" layoutY="392.0" prefHeight="26.0" prefWidth="300.0" />
       <Label layoutX="23.0" layoutY="808.0" prefHeight="18.0" prefWidth="1261.0" style="-fx-border-style: dotted;" text="Estado:">
          <font>
             <Font size="10.0" />

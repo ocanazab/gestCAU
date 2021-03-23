@@ -6,6 +6,7 @@ import com.nacho.gestCAU.util.Mensajeria;
 import com.nacho.gestCAU.util.R;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -198,7 +199,7 @@ public class Model {
 
     public ObservableList<Incidenciasmysql> listaGestionIncidencias() {
 
-        ObservableList<Incidenciasmysql> data = FXCollections.observableArrayList();
+       ObservableList<Incidenciasmysql> data =FXCollections.observableArrayList();
 
         try{
             String sqlMysql="select codIncidencia, descripcion,fecha_creacion,fecha_solucion,estado,nombre,apellidos,email from incidencias order by fecha_creacion";

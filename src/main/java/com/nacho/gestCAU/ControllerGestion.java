@@ -5,6 +5,7 @@ import com.nacho.gestCAU.util.Mensajeria;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -13,14 +14,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
+import java.util.logging.Filter;
 
 public class ControllerGestion {
     @FXML
     private TextArea txtDescripcionIncidencia;
     @FXML
+    private TextField txtBusqueda;
+    @FXML
     private ChoiceBox cbTipoIncidencia;
     @FXML
     private ChoiceBox cbEstado;
+    @FXML
+    private ChoiceBox cbBusqueda;
     @FXML
     private DatePicker dpFechaCreacion;
     @FXML
@@ -76,6 +82,10 @@ public class ControllerGestion {
         ObservableList<String> listaEstados = FXCollections.observableArrayList("En curso","Solucionada");
         cbEstado.setItems(listaEstados);
 
+        //Relleno el combo de busqueda
+        ObservableList<String> listaBusqueda = FXCollections.observableArrayList("Nombre","Estado");
+        cbBusqueda.setItems(listaBusqueda);
+
         String resultado="";
 
         //Consulto a Postgre las incidencias pendientes de traspaso y las inserto en Mysql
@@ -98,15 +108,18 @@ public class ControllerGestion {
 
     private String refrescaTabla(){
         String resultado="";
+        Model modelo = new Model();
+
 
         //Muestro las incidencias
-        ObservableList<Incidenciasmysql> lista = FXCollections.observableArrayList();
-
-        Model modelo = new Model();
-        //modelo.conectarBD(bd);
+        //ObservableList<Incidenciasmysql> lista = FXCollections.observableArrayList();
         modelo.conectarBD(bd);
+        FilteredList<Incidenciasmysql> lista = new FilteredList<>(modelo.listaGestionIncidencias(),p->true);
 
-        lista = modelo.listaGestionIncidencias();
+        //modelo.conectarBD(bd);
+
+
+        //lista = modelo.listaGestionIncidencias();
 
         if(lista!=null){
             //Relleno el TableView
@@ -204,5 +217,8 @@ public class ControllerGestion {
     private void salir(){
         System.exit(0);
     }
+
+
+
 
 }
