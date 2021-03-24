@@ -116,9 +116,6 @@ public class ControllerGestion {
         modelo.conectarBD(bd);
         FilteredList<Incidenciasmysql> lista = new FilteredList<>(modelo.listaGestionIncidencias(),p->true);
 
-        //modelo.conectarBD(bd);
-
-
         //lista = modelo.listaGestionIncidencias();
 
         if(lista!=null){
@@ -139,7 +136,15 @@ public class ControllerGestion {
         }else{
             resultado="Error";
         }
-        //modelo.desconectarBD(bd);
+
+        //Implemento busqueda.
+        txtBusqueda.textProperty().addListener((prop, old, text) -> {
+            lista.setPredicate(Incidenciasmysql -> {
+                if(text == null || text.isEmpty()) return true;
+                 String estado = Incidenciasmysql.getEstado();
+                 return estado.contains(text);});
+        });
+
         modelo.desconectarBD(bd);
         return resultado;
     }
