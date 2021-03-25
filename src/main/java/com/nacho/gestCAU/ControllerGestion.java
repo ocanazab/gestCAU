@@ -83,7 +83,7 @@ public class ControllerGestion {
         cbEstado.setItems(listaEstados);
 
         //Relleno el combo de busqueda
-        ObservableList<String> listaBusqueda = FXCollections.observableArrayList("Nombre","Estado");
+        ObservableList<String> listaBusqueda = FXCollections.observableArrayList("Nombre","Estado","Descripcion");
         cbBusqueda.setItems(listaBusqueda);
         cbBusqueda.getSelectionModel().select("Nombre");
 
@@ -144,14 +144,21 @@ public class ControllerGestion {
                 case "Nombre":
                     lista.setPredicate(Incidenciasmysql -> {
                         if(text == null || text.isEmpty()) return true;
-                        String nombre = Incidenciasmysql.getNombre();
-                        return nombre.contains(text);});
+                        String nom = Incidenciasmysql.getNombre();
+                        return nom.contains(text);});
                     break;
                 case "Estado":
                     lista.setPredicate(Incidenciasmysql -> {
                         if(text == null || text.isEmpty()) return true;
-                        String estado = Incidenciasmysql.getEstado();
-                        return estado.contains(text);});
+                        String est = Incidenciasmysql.getEstado();
+                        return est.contains(text);});
+                    break;
+                case "Descripcion":
+                    lista.setPredicate(Incidenciasmysql -> {
+                        if(text == null || text.isEmpty()) return true;
+                        String desc = Incidenciasmysql.getDescripcion();
+                        return desc.contains(text);});
+                    break;
             }
         });
 
