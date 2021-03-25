@@ -85,6 +85,7 @@ public class ControllerGestion {
         //Relleno el combo de busqueda
         ObservableList<String> listaBusqueda = FXCollections.observableArrayList("Nombre","Estado");
         cbBusqueda.setItems(listaBusqueda);
+        cbBusqueda.getSelectionModel().select("Nombre");
 
         String resultado="";
 
@@ -139,10 +140,19 @@ public class ControllerGestion {
 
         //Implemento busqueda.
         txtBusqueda.textProperty().addListener((prop, old, text) -> {
-            lista.setPredicate(Incidenciasmysql -> {
-                if(text == null || text.isEmpty()) return true;
-                 String estado = Incidenciasmysql.getEstado();
-                 return estado.contains(text);});
+            switch (cbBusqueda.getValue().toString()){
+                case "Nombre":
+                    lista.setPredicate(Incidenciasmysql -> {
+                        if(text == null || text.isEmpty()) return true;
+                        String nombre = Incidenciasmysql.getNombre();
+                        return nombre.contains(text);});
+                    break;
+                case "Estado":
+                    lista.setPredicate(Incidenciasmysql -> {
+                        if(text == null || text.isEmpty()) return true;
+                        String estado = Incidenciasmysql.getEstado();
+                        return estado.contains(text);});
+            }
         });
 
         modelo.desconectarBD(bd);
